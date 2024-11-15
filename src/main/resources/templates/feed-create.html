@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+  <meta charset="UTF-8">
+  <title>Create/Edit Feed</title>
+  <style>
+    @font-face {
+      font-family: 'establishRetrosansOTF';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      font-family: 'establishRetrosansOTF', Arial, sans-serif; font-weight: 100;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #feedFormContainer {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    #header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #imageUploadContainer {
+      background-color: #f8f8f8;
+      border: 2px dashed #cccccc;
+      padding: 60px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    #imageUploadContainer p {
+      margin: 20px 0;
+    }
+    #createEditButtonContainer {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+    #createEditButton {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #createEditButton:hover {
+      background-color: #0056b3;
+    }
+    #contentContainer {
+      background-color: #f8f8f8;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    #feedContentInput {
+      width: 100%;
+      height: 80px;
+      border: none;
+      resize: none;
+      background: transparent;
+      font-size: 1em;
+      outline: none;
+    }
+    #closeButton {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+    #closeButton:hover {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+<div id="feedFormContainer">
+  <div id="header">
+    <button id="closeButton" onclick="closeFeed()">&times;</button>
+    <h1>새 게시물 만들기</h1>
+    <button id="createEditButton" onclick="createFeed()">생성</button>
+  </div>
+  <div id="imageUploadContainer">
+    <i class="bi bi-camera" style="font-size: 50px;"></i>
+    <p>사진을 선택해 주세요</p>
+    <button type="button" onclick="document.getElementById('fileInput').click()">컴퓨터에서 선택</button>
+    <input type="file" id="fileInput" style="display: none;">
+  </div>
+
+  <div id="contentContainer">
+    <textarea id="feedContentInput" placeholder="피드를 적어주세요"></textarea>
+  </div>
+</div>
+
+<script>
+  function createFeed() {
+    const content = document.getElementById('feedContentInput').value;
+    const imageUrl = 'dummy-url'; // 실제 구현 시 이미지 선택 로직 필요
+
+    fetch('/feed/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ content, imageUrl })
+    }).then(response => response.json())
+            .then(data => {
+              alert('Feed created successfully!');
+            }).catch(error => {
+      console.error('Error:', error);
+    });
+  }
+  function closeFeed() {
+    document.getElementById('feedFormContainer').style.display = 'none';
+  }
+</script>
+</body>
+</html>
