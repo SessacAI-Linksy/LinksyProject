@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram Style Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: flex-start; /* 가운데 정렬 대신 왼쪽 정렬로 변경 */
+      align-items: flex-start; /* 상단 정렬 */
+      height: 100vh;
+      margin: 0;
+    }
+
+    #notificationContainer {
+      background-color: #ffffff;
+      width: 320px; /* 알림창 너비 */
+      height: 100vh; /* 화면 전체 높이로 설정 */
+      padding: 20px;
+      box-sizing: border-box; /* 패딩을 포함한 전체 높이를 맞추기 위해 사용 */
+      border-radius: 15px 15px 0 0; /* 상단 모서리 둥글게 */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-left: 200px; /* 왼쪽에서 200px 띄움, 메인창과 비교해서 나중에 위치 고정하기 */
+    }
+
+    #notificationHeader {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+    }
+
+    #newStory {
+      color: #888888;
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+
+    .notificationItem {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .profileImage {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .notificationText {
+      flex: 1;
+      font-size: 0.9em;
+      color: #333333;
+    }
+
+    .followButton {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .followButton:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div id="notificationContainer">
+  <div id="notificationHeader">알림</div>
+  <div id="newStory">오늘</div>
+  <div class="notificationItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="notificationText">
+      <strong>geminanolja</strong>님이 회원님을 팔로우하기 시작했습니다.
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
