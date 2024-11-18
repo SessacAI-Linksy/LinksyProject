@@ -24,7 +24,7 @@ public class feed_create_controller {
         try {
             Feed createdFeed = feedService.createFeed(content, image); // FeedService를 호출해 게시물을 생성하고 반환
             model.addAttribute("feed", createdFeed); // 생성된 게시물을 모델에 추가하여 뷰로 전달
-            return "redirect:/feed/success"; // 성공적으로 게시물이 생성되면 success 페이지로 리디렉션
+            return "feed-create-success";  // 리다이렉트를 하지 않고, 바로 뷰 이름을 반환
         } catch (IOException e) { // 이미지 업로드 시 발생할 수 있는 예외 처리
             throw new RuntimeException("Error uploading image", e); // 예외 발생 시 런타임 예외로 처리
         }

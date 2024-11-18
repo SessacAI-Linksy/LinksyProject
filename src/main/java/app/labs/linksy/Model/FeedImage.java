@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 public class FeedImage {
 
 	@Id // 기본 키 지정
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 증가 설정
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feed_image_seq_generator")
+	@SequenceGenerator(name = "feed_image_seq_generator", sequenceName = "FEED_IMAGE_SEQ", allocationSize = 1) // 시퀀스를 사용해 IMAGE_ID 자동 생성
 	@Column(name = "IMAGE_ID")
 	int imageId;
 

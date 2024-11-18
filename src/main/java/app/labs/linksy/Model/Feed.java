@@ -10,8 +10,8 @@ import java.util.List;
 public class Feed {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feed_seq")
-	@SequenceGenerator(name = "feed_seq", sequenceName = "FEED_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feed_seq_generator")
+	@SequenceGenerator(name = "feed_seq_generator", sequenceName = "FEED_SEQ", allocationSize = 1)
 	@Column(name = "FEED_ID")
 	int feedId;
 
