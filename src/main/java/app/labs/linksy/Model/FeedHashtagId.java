@@ -48,4 +48,3 @@ public class FeedHashtagId implements Serializable {
         this.hashtagId = hashtagId;
     }
 }
-

@@ -17,8 +17,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class FeedCreateService {
@@ -93,7 +95,7 @@ public class FeedCreateService {
             }
 
             // 'FEED_HASHTAG' 테이블에 Feed와 Hashtag 관계 저장
-            saveFeedHashtag(savedFeed.getFeedId(), hashtag.getHashtagId());
+            saveFeedHashtag(savedFeed, hashtag);
         }
 
         // 생성된 Feed 반환
@@ -101,17 +103,25 @@ public class FeedCreateService {
     }
 
     // 해시태그와 피드 관계 저장
-    public void saveFeedHashtag(Integer feedId, Integer hashtagId) {
-        FeedHashtag feedHashtag = new FeedHashtag();
-        feedHashtag.setFeedId(feedId);
-        feedHashtag.setHashtagId(hashtagId);
-        feedHashtagRepository.save(feedHashtag);
+    public void saveFeedHashtag(Feed feed, Hashtag hashtag) {
+        int feedId = feed.getFeedId(); // Feed 객체에서 ID 추출
+        int hashtagId = hashtag.getHashtagId(); // Hashtag 객체에서 ID 추출
+
+        FeedHashtag feedHashtag = new FeedHashtag(feedId, hashtagId); // FeedId와 HashtagId를 사용하여 생성
+        feedHashtagRepository.save(feedHashtag); // 저장
     }
 
-    // 해시태그 추출 메서드 (간단한 예시)
+    // 해시태그 추출 메서드 구현
     private List<String> extractHashtags(String content) {
-        // 내용에서 해시태그를 추출하는 로직 구현
-        // 예를 들어, '#'으로 시작하는 단어들을 추출할 수 있습니다.
-        return List.of(); // 추출된 해시태그 리스트 반환 (구현 필요)
+        if (content == null || content.isEmpty()) {
+            return List.of();
+        }
+        // '#'으로 시작하는 단어를 추출하는 정규 표현식
+        return Arrays.stream(content.split(" "))
+                .filter(word -> word.startsWith("#"))
+                .map(word -> word.replaceAll("[^#\\w]", "")) // 해시태그 단어에서 특수문자 제거
+                .distinct()
+                .collect(Collectors.toList());
     }
+
 }

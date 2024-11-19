@@ -1,23 +1,28 @@
 package app.labs.linksy.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 @Entity // Hashtag를 JPA 엔티티로 표시
 @Table(name = "HASHTAG") // 테이블 이름을 HASHTAG로 매핑
 public class Hashtag {
 
-	@Id // 기본 키 필드를 지정합니다.
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 증가 설정 (필요시 변경 가능)
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hashtag_seq")
+	@SequenceGenerator(name = "hashtag_seq", sequenceName = "HASHTAG_SEQ", allocationSize = 1)
 	@Column(name = "HASHTAG_ID")
-	int hashtagId;
+	Integer hashtagId;
 
-	@Column(name = "HASHTAG", nullable = false)
+	@Column(name = "HASHTAG", nullable = false, unique = true)
 	String hashtag;
+
+	// 기본 생성자
+	public Hashtag() {
+	}
+
+	// 생성자
+	public Hashtag(String hashtag) {
+		this.hashtag = hashtag;
+	}
 
 	// Getter and Setter for hashtagId
 	public int getHashtagId() {
