@@ -4,144 +4,141 @@
   <meta charset="UTF-8">
   <title>Instagram Style Notification</title>
   <style>
-    @font-face {
-      font-family: 'SBAggroB';
-      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-
     body {
-      font-family: 'SBAggroB', Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f0f0f0;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      height: 100vh;
-      margin: 0;
+      padding: 20px;
     }
-
     #notificationContainer {
       background-color: #ffffff;
       width: 320px;
-      height: 100vh;
+      height: 80vh;
       padding: 20px;
-      box-sizing: border-box;
-      border-radius: 15px 15px 0 0;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin-left: 200px;
       overflow-y: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
-    #notificationHeader {
-      font-weight: bold;
-      margin-bottom: 10px;
-      font-size: 1.2em;
-    }
-
-    #newStory {
-      color: #888888;
-      margin-bottom: 20px;
-      font-size: 0.9em;
-    }
-
     .notificationItem {
       display: flex;
       align-items: center;
-      margin-bottom: 15px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
     }
-
     .profileImage {
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      margin-right: 15px;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      background-color: #3897f0;
     }
-
-    .notificationText {
-      flex: 1;
-      font-size: 0.9em;
-      color: #333333;
+    #buttonsContainer {
+      margin-top: 20px;
     }
-
-    .timeText {
-      font-size: 0.8em;
-      color: #888888;
-    }
-
-    @media screen and (max-width: 768px) {
-      #notificationContainer {
-        width: 100%;
-        height: auto;
-        margin-left: 0;
-        border-radius: 0;
-      }
-      .profileImage {
-        width: 40px;
-        height: 40px;
-      }
+    #buttonsContainer button {
+      padding: 10px;
+      margin-right: 10px;
+      background-color: #3897f0;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 </head>
 <body>
 <div id="notificationContainer">
-  <div id="notificationHeader">알림</div>
-  <div id="newStory">오늘</div>
-
-  <!-- 기존의 정적 알림들 -->
+  <h2>알림</h2>
 </div>
-
+<div id="buttonsContainer">
+  <button onclick="sendNotification('user123', 'LIKE', 'http://example.com/post/1')">
+    👍
+  </button>
+  <button onclick="sendNotification('user123', 'COMMENT', 'http://example.com/post/1')">
+    💬
+  </button>
+  <button onclick="sendNotification('user123', 'FOLLOW', 'http://example.com/user/456')">
+    ➕
+  </button>
+</div>
 <script src="https://cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // WebSocket 연결 설정
-    const socket = new SockJS('http://localhost:80/ws'); // 수정된 부분: 절대 경로로 변경
+    const socket = new SockJS('http://localhost/ws');
     const stompClient = Stomp.over(socket);
-
-    stompClient.debug = function (str) {
-      console.log(str);  // 연결 시도, 구독, 수신 등에 대한 로그가 출력됩니다.
-    };
-
-
     stompClient.connect({}, function (frame) {
       console.log('Connected: ' + frame);
-      // '/topic/notifications' 주제를 구독하여 서버로부터 알림을 받음
       stompClient.subscribe('/topic/notifications', function (notification) {
         addNotificationToDOM(JSON.parse(notification.body));
       });
     });
 
-    // 새로운 알림을 DOM에 추가하는 함수
     function addNotificationToDOM(notification) {
       const container = document.getElementById('notificationContainer');
-
-      // 새로운 알림 항목 생성
       const notificationItem = document.createElement('div');
       notificationItem.classList.add('notificationItem');
+      notificationItem.onclick = function () {
+        window.location.href = notification.targetUrl;
+      };
 
-      const profileImage = document.createElement('img');
-      profileImage.src = notification.profileImage || 'https://via.placeholder.com/50';
-      profileImage.alt = 'Profile Image';
+      const profileImage = document.createElement('div');
       profileImage.classList.add('profileImage');
+      switch (notification.notiType) {
+        case 'LIKE':
+          profileImage.innerText = '👍';
+          break;
+        case 'COMMENT':
+          profileImage.innerText = '💬';
+          break;
+        case 'FOLLOW':
+          profileImage.innerText = '➕';
+          break;
+        default:
+          profileImage.innerText = 'ℹ️';
+          break;
+      }
 
-      const notificationText = document.createElement('div');
-      notificationText.classList.add('notificationText');
-      notificationText.innerHTML = `<strong>${notification.userId}</strong>님이 ${notification.content}`;
+      const contentText = document.createElement('div');
+      contentText.innerText = notification.content;
 
-      const timeText = document.createElement('div');
-      timeText.classList.add('timeText');
-      timeText.innerText = notification.time || '방금 전';
-
-      notificationText.appendChild(timeText);
       notificationItem.appendChild(profileImage);
-      notificationItem.appendChild(notificationText);
-
-      // 알림을 DOM에 추가
+      notificationItem.appendChild(contentText);
       container.appendChild(notificationItem);
+    }
+
+    window.sendNotification = function (userId, notiType, targetUrl) {
+      fetch('http://localhost/notifications/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          userId: userId,
+          notiType: notiType,
+          targetUrl: targetUrl
+        })
+      })
+              .then(response => response.json())
+              .then(data => {
+                console.log('알림 생성됨:', data);
+              })
+              .catch(error => {
+                console.error('알림 생성 오류:', error);
+              });
     }
   });
 </script>
-
 </body>
 </html>
