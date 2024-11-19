@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -122,6 +123,29 @@ public class FeedCreateService {
                 .map(word -> word.replaceAll("[^#\\w]", "")) // 해시태그 단어에서 특수문자 제거
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    // 특정 ID의 피드 가져오기
+    public Feed getFeedById(int id) {
+        Optional<Feed> optionalFeed = feedCreateRepository.findById(id);
+        return optionalFeed.orElse(null); // 피드를 찾을 수 없으면 null 반환
+    }
+
+    public void updateFeed(int id, Feed updatedFeed) {
+        // 해당 id의 Feed를 찾아서 업데이트합니다.
+        Feed existingFeed = feedCreateRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Feed not found"));
+
+        // Feed 객체의 내용을 수정합니다. 이미지 수정은 하지 않습니다.
+        existingFeed.setFeedContent(updatedFeed.getFeedContent());
+
+        // 수정된 Feed를 다시 저장합니다.
+        feedCreateRepository.save(existingFeed);
+    }
+
+    // 특정 ID의 피드 삭제
+    public void deleteFeedById(int id) {
+        feedCreateRepository.deleteById(id); // 피드 삭제
     }
 
 }
