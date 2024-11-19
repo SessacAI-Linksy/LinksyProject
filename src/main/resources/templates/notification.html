@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram Style Notification</title>
+  <style>
+    @font-face {
+      font-family: 'SBAggroB';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'SBAggroB', Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #notificationContainer {
+      background-color: #ffffff;
+      width: 320px;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      border-radius: 15px 15px 0 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-left: 200px;
+      overflow-y: auto;
+    }
+
+    #notificationHeader {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+    }
+
+    #newStory {
+      color: #888888;
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+
+    .notificationItem {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .profileImage {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .notificationText {
+      flex: 1;
+      font-size: 0.9em;
+      color: #333333;
+    }
+
+    .timeText {
+      font-size: 0.8em;
+      color: #888888;
+    }
+
+    @media screen and (max-width: 768px) {
+      #notificationContainer {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        border-radius: 0;
+      }
+      .profileImage {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="notificationContainer">
+  <div id="notificationHeader">알림</div>
+  <div id="newStory">오늘</div>
+
+  <!-- 기존의 정적 알림들 -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // WebSocket 연결 설정
+    const socket = new SockJS('http://localhost:80/ws'); // 수정된 부분: 절대 경로로 변경
+    const stompClient = Stomp.over(socket);
+
+    stompClient.debug = function (str) {
+      console.log(str);  // 연결 시도, 구독, 수신 등에 대한 로그가 출력됩니다.
+    };
+
+
+    stompClient.connect({}, function (frame) {
+      console.log('Connected: ' + frame);
+      // '/topic/notifications' 주제를 구독하여 서버로부터 알림을 받음
+      stompClient.subscribe('/topic/notifications', function (notification) {
+        addNotificationToDOM(JSON.parse(notification.body));
+      });
+    });
+
+    // 새로운 알림을 DOM에 추가하는 함수
+    function addNotificationToDOM(notification) {
+      const container = document.getElementById('notificationContainer');
+
+      // 새로운 알림 항목 생성
+      const notificationItem = document.createElement('div');
+      notificationItem.classList.add('notificationItem');
+
+      const profileImage = document.createElement('img');
+      profileImage.src = notification.profileImage || 'https://via.placeholder.com/50';
+      profileImage.alt = 'Profile Image';
+      profileImage.classList.add('profileImage');
+
+      const notificationText = document.createElement('div');
+      notificationText.classList.add('notificationText');
+      notificationText.innerHTML = `<strong>${notification.userId}</strong>님이 ${notification.content}`;
+
+      const timeText = document.createElement('div');
+      timeText.classList.add('timeText');
+      timeText.innerText = notification.time || '방금 전';
+
+      notificationText.appendChild(timeText);
+      notificationItem.appendChild(profileImage);
+      notificationItem.appendChild(notificationText);
+
+      // 알림을 DOM에 추가
+      container.appendChild(notificationItem);
+    }
+  });
+</script>
+
+</body>
+</html>
