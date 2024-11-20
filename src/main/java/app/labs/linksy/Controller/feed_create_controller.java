@@ -46,7 +46,7 @@ public class feed_create_controller {
     // Success Page - 게시물 생성 성공 시 보여주는 페이지
     @GetMapping("/success")
     public String successPage() {
-        return "feed-create-success";
+        return "feed-create-success"; // 성공 페이지 (feed-create-success.html)를 반환
     }
 
     // 게시물 수정 페이지로 이동하는 메서드

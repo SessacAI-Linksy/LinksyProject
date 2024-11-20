@@ -12,7 +12,7 @@
       font-style: normal;
     }
     body {
-      font-family: 'SBAggroB', Arial, sans-serif; font-weight: 100;
+      font-family: 'SBAggroB', Arial, sans-serif;
       background-color: #ffffff;
       display: flex;
       justify-content: center;
@@ -29,9 +29,9 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      position: relative; /* 부모 요소 기준으로 위치 설정 */
     }
     #header {
-      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -44,14 +44,6 @@
       text-align: center;
       margin-bottom: 20px;
       border-radius: 10px;
-    }
-    #imageUploadContainer p {
-      margin: 20px 0;
-    }
-    #createEditButtonContainer {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 20px;
     }
     #createEditButton {
       padding: 10px 20px;
@@ -80,35 +72,54 @@
     }
     #closeButton {
       position: absolute;
-      top: -10px;
-      right: -10px;
+      top: 10px;
+      right: 10px;
       background-color: transparent;
       border: none;
       font-size: 24px;
       cursor: pointer;
       color: #333;
+      z-index: 100; /* 다른 요소보다 우선 보이게 설정 */
     }
     #closeButton:hover {
       color: #ff0000;
+    }
+    #successMessage {
+      display: none; /* 기본적으로 숨김 */
+      text-align: center;
+      position: relative; /* 닫기 버튼 추가를 위한 상대 위치 지정 */
+    }
+    .checkIcon {
+      font-size: 80px;
+      color: #ff007f;
     }
   </style>
 </head>
 <body>
 <div id="feedFormContainer">
-  <div id="header">
-    <button id="closeButton" onclick="closeFeed()">&times;</button>
-    <h1>새 게시물 만들기</h1>
-    <button id="createEditButton" onclick="createFeed()">생성</button>
-  </div>
-  <div id="imageUploadContainer">
-    <i class="bi bi-camera" style="font-size: 50px;"></i>
-    <p>사진을 선택해 주세요</p>
-    <button type="button" onclick="document.getElementById('fileInput').click()">컴퓨터에서 선택</button>
-    <input type="file" id="fileInput" style="display: none;">
+  <!-- 게시물 작성 폼 -->
+  <div id="formContent">
+    <div id="header">
+      <button id="closeButton" onclick="closeFeed()">&times;</button>
+      <h1>새 게시물 만들기</h1>
+      <button id="createEditButton" onclick="createFeed()">생성</button>
+    </div>
+    <div id="imageUploadContainer">
+      <i class="bi bi-camera" style="font-size: 50px;"></i>
+      <p>사진을 선택해 주세요</p>
+      <button type="button" onclick="document.getElementById('fileInput').click()">컴퓨터에서 선택</button>
+      <input type="file" id="fileInput" style="display: none;">
+    </div>
+    <div id="contentContainer">
+      <textarea id="feedContentInput" placeholder="피드를 적어주세요"></textarea>
+    </div>
   </div>
 
-  <div id="contentContainer">
-    <textarea id="feedContentInput" placeholder="피드를 적어주세요"></textarea>
+  <!-- 성공 메시지 -->
+  <div id="successMessage">
+    <button id="closeButtonSuccess" onclick="closeFeed()">&times;</button>
+    <div class="checkIcon">&#x2714;</div>
+    <h1>게시물이 공유되었습니다.</h1>
   </div>
 </div>
 
@@ -136,9 +147,17 @@
       },
       body: JSON.stringify(postData)
     })
-            .then(response => response.json())
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Network response was not ok');
+              }
+            })
             .then(data => {
-              alert('Feed created successfully!');
+              // 게시물 생성 성공 시 성공 메시지 표시
+              document.getElementById('formContent').style.display = 'none'; // 폼 숨기기
+              document.getElementById('successMessage').style.display = 'block'; // 성공 메시지 보여주기
             })
             .catch(error => {
               console.error('Error:', error);
