@@ -5,64 +5,71 @@ import app.labs.linksy.Model.FeedHashtag;
 import app.labs.linksy.Model.FeedImage;
 import app.labs.linksy.Model.Hashtag;
 import app.labs.linksy.Repository.FeedHashtagRepository;
+import app.labs.linksy.Repository.feed_create_repository;
 import app.labs.linksy.Repository.FeedImageRepository;
+import app.labs.linksy.Repository.hashtag_repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import app.labs.linksy.Repository.feed_create_repository;
-import app.labs.linksy.Repository.FeedHashtagRepository;
-import app.labs.linksy.Repository.hashtag_repository;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
 public class FeedCreateService {
 
-    @Autowired
-    private feed_create_repository feedCreateRepository; // Repository를 자동 주입하여 DB와의 상호작용을 처리
+    private static final Logger logger = LoggerFactory.getLogger(FeedCreateService.class);
 
     @Autowired
-    private FeedHashtagRepository feedHashtagRepository;
+    private feed_create_repository feedRepository;
+
+    @Autowired
+    private FeedHashtagRepository feedHashRepository;
 
     @Autowired
     private hashtag_repository hashtagRepository;
 
     @Autowired
-    private FeedImageRepository feedImageRepository; // 새로운 필드 추가하여 의존성 주입
+    private FeedImageRepository feedImageRepository;
 
-    // Create Feed
-    public Feed createFeed(String content, MultipartFile image) throws IOException {
-        // 새로운 Feed 객체를 생성
+    // 게시물 생성 메서드
+    @Transactional
+    public Feed createFeed(String content, MultipartFile image, List<String> hashtags) throws IOException {
+        if (content == null || content.isEmpty()) {
+            throw new IllegalArgumentException("Content cannot be empty");
+        }
+
         Feed newFeed = new Feed();
-        newFeed.setFeedContent(content); // Setter 사용하여 feedContent 설정
-        newFeed.setFeedTime(new Timestamp(System.currentTimeMillis())); // 현재 시간 설정
+        newFeed.setFeedContent(content);
+        newFeed.setFeedTime(new Timestamp(System.currentTimeMillis()));
 
-        // Feed를 DB에 저장
-        Feed savedFeed = feedCreateRepository.save(newFeed);
+        Feed savedFeed = feedRepository.save(newFeed);
+        if (savedFeed == null) {
+            throw new RuntimeException("Failed to save feed");
+        }
 
         // 이미지가 제공되었는지 체크
         if (image != null && !image.isEmpty()) {
-            // 이미지 파일명을 UUID로 설정하여 충돌 방지
             String originalFilename = image.getOriginalFilename();
             String fileName = UUID.randomUUID().toString();
             if (originalFilename != null) {
                 fileName += "_" + originalFilename;
             } else {
-                fileName += "_unknown.png"; // 기본 파일명 설정 (원래 파일명이 없는 경우)
+                fileName += "_unknown.png";
             }
 
-            String uploadDir = "uploads/"; // 이미지를 저장할 디렉토리
+            String uploadDir = "uploads/";
             File dir = new File(uploadDir);
 
-            // 저장 디렉토리 없으면 생성
             if (!dir.exists()) {
                 boolean isCreated = dir.mkdirs();
                 if (!isCreated) {
@@ -70,82 +77,105 @@ public class FeedCreateService {
                 }
             }
 
-            // 이미지 파일을 저장
             File uploadedFile = new File(Paths.get(uploadDir, fileName).toString());
             image.transferTo(uploadedFile);
 
-            // FeedImage 객체를 생성하여 이미지 정보를 저장
             FeedImage feedImage = new FeedImage();
-            feedImage.setFeed(savedFeed); // Setter를 사용하여 feedId 설정
-            feedImage.setImgName(uploadDir + fileName); // 이미지 이름 설정
-            feedImageRepository.save(feedImage); // 이미지 정보를 DB에 저장
-
-            // 이미지 정보를 DB에 저장
+            feedImage.setFeed(savedFeed);
+            feedImage.setImgName(uploadDir + fileName);
             feedImageRepository.save(feedImage);
         }
 
-        // 해시태그 저장
-        List<String> hashtags = extractHashtags(content);
-        for (String tag : hashtags) {
-            // 'HASHTAG' 테이블에 해시태그 저장
+        // 해시태그 저장: 추출된 해시태그와 사용자가 입력한 해시태그를 모두 사용
+        Set<String> allHashtags = new HashSet<>(hashtags);
+        allHashtags.addAll(extractHashtags(content));
+
+        for (String tag : allHashtags) {
             Hashtag hashtag = hashtagRepository.findByHashtag(tag);
             if (hashtag == null) {
                 hashtag = new Hashtag();
                 hashtag.setHashtag(tag);
                 hashtag = hashtagRepository.save(hashtag);
+                logger.info("새로운 해시태그 저장: {}", hashtag.getHashtag());
+            } else {
+                logger.info("기존 해시태그 사용: {}", hashtag.getHashtag());
             }
 
-            // 'FEED_HASHTAG' 테이블에 Feed와 Hashtag 관계 저장
             saveFeedHashtag(savedFeed, hashtag);
         }
 
-        // 생성된 Feed 반환
         return savedFeed;
     }
 
     // 해시태그와 피드 관계 저장
     public void saveFeedHashtag(Feed feed, Hashtag hashtag) {
-        int feedId = feed.getFeedId(); // Feed 객체에서 ID 추출
-        int hashtagId = hashtag.getHashtagId(); // Hashtag 객체에서 ID 추출
+        int feedId = feed.getFeedId();
+        int hashtagId = hashtag.getHashtagId();
 
-        FeedHashtag feedHashtag = new FeedHashtag(feedId, hashtagId); // FeedId와 HashtagId를 사용하여 생성
-        feedHashtagRepository.save(feedHashtag); // 저장
+        // 중복 관계가 있는지 확인
+        Optional<FeedHashtag> existingRelationship = feedHashRepository.findByFeedIdAndHashtagId(feedId, hashtagId);
+        if (existingRelationship.isEmpty()) {
+            FeedHashtag feedHashtag = new FeedHashtag(feedId, hashtagId);
+            feedHashRepository.save(feedHashtag);
+            logger.info("피드와 해시태그 관계 저장: Feed ID = {}, Hashtag ID = {}", feedId, hashtagId);
+        } else {
+            logger.info("이미 존재하는 피드와 해시태그 관계: Feed ID = {}, Hashtag ID = {}", feedId, hashtagId);
+        }
     }
 
-    // 해시태그 추출 메서드 구현
+    // 해시태그 추출 메서드
     private List<String> extractHashtags(String content) {
         if (content == null || content.isEmpty()) {
+            logger.debug("입력된 content가 비어있습니다.");
             return List.of();
         }
-        // '#'으로 시작하는 단어를 추출하는 정규 표현식
-        return Arrays.stream(content.split(" "))
-                .filter(word -> word.startsWith("#"))
-                .map(word -> word.replaceAll("[^#\\w]", "")) // 해시태그 단어에서 특수문자 제거
+
+        logger.debug("입력된 content: {}", content);
+
+        List<String> hashtags = new ArrayList<>();
+        // 한글, 영문, 숫자, 언더스코어를 포함하는 패턴
+        Pattern pattern = Pattern.compile("#[ㄱ-ㅎ가-힣a-zA-Z0-9_]+");
+        Matcher matcher = pattern.matcher(content);
+
+        while (matcher.find()) {
+            String hashtag = matcher.group();
+            hashtags.add(hashtag);
+            logger.debug("추출된 해시태그: {}", hashtag);
+        }
+
+        logger.info("전체 추출된 해시태그 목록: {}", hashtags);
+
+        return hashtags.stream()
                 .distinct()
                 .collect(Collectors.toList());
     }
 
-    // 특정 ID의 피드 가져오기
+    // 게시물 ID로 게시물 조회 메서드
     public Feed getFeedById(int id) {
-        Optional<Feed> optionalFeed = feedCreateRepository.findById(id);
-        return optionalFeed.orElse(null); // 피드를 찾을 수 없으면 null 반환
+        return feedRepository.findById(id).orElseThrow(() -> new RuntimeException("Feed not found"));
+    }
+    // 테스트용 메서드 추가
+    public void testExtractHashtags() {
+        String testContent = "테스트 #안녕하세요 #Hello #테스트123 #한글_태그 #English_Tag";
+        logger.info("==== 해시태그 추출 테스트 시작 ====");
+        logger.info("테스트 문자열: {}", testContent);
+        List<String> hashtags = extractHashtags(testContent);
+        logger.info("추출 결과: {}", hashtags);
+        logger.info("==== 해시태그 추출 테스트 종료 ====");
     }
 
+
+    // 게시물 수정 메서드
+    @Transactional
     public void updateFeed(int id, Feed updatedFeed) {
-        // 해당 id의 Feed를 찾아서 업데이트합니다.
-        Feed existingFeed = feedCreateRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Feed not found"));
-
-        // Feed 객체의 내용을 수정합니다. 이미지 수정은 하지 않습니다.
+        Feed existingFeed = getFeedById(id);
         existingFeed.setFeedContent(updatedFeed.getFeedContent());
-
-        // 수정된 Feed를 다시 저장합니다.
-        feedCreateRepository.save(existingFeed);
+        feedRepository.save(existingFeed);
     }
 
-    // 특정 ID의 피드 삭제
+    // 게시물 삭제 메서드
+    @Transactional
     public void deleteFeedById(int id) {
-        feedCreateRepository.deleteById(id); // 피드 삭제
+        feedRepository.deleteById(id);
     }
-
 }

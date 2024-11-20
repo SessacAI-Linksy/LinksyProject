@@ -7,51 +7,61 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model;
 
 import java.io.IOException;
+import java.util.List;
 
-@Controller // @Controller 어노테이션 추가
+@Controller
 @RequestMapping("/feed")
 public class feed_create_controller {
 
     @Autowired
-    private FeedCreateService feedService; // FeedService를 자동 주입하여 게시물 생성 관련 비즈니스 로직을 처리
+    private FeedCreateService feedService;
 
-    // Create Feed - 게시물 생성 메서드
+    // Create Feed Page - 게시물 작성 페이지를 열기 위한 메서드
+    @GetMapping("/create")
+    public String createFeedPage() {
+        return "feed-create"; // 게시물 작성 페이지 (feed-create.html)를 반환
+    }
+
+    // Create Feed - JSON 데이터를 받는 게시물 생성 메서드
     @PostMapping("/create")
-    public String createFeed(@RequestParam("content") String content, // 게시물 내용 파라미터
-                             @RequestParam(value = "image", required = false) MultipartFile image, // 이미지 파일 파라미터 (선택사항)
-                             Model model) { // Model 객체를 통해 뷰에 데이터를 전달
+    public ResponseEntity<?> createFeed(@RequestBody FeedRequest feedRequest) {
         try {
-            Feed createdFeed = feedService.createFeed(content, image); // FeedService를 호출해 게시물을 생성하고 반환
-            model.addAttribute("feed", createdFeed); // 생성된 게시물을 모델에 추가하여 뷰로 전달
-            return "feed-create-success";  // 리다이렉트를 하지 않고, 바로 뷰 이름을 반환
-        } catch (IOException e) { // 이미지 업로드 시 발생할 수 있는 예외 처리
-            throw new RuntimeException("Error uploading image", e); // 예외 발생 시 런타임 예외로 처리
+            // FeedRequest에서 content, hashtags, imageUrl을 받습니다.
+            String content = feedRequest.getContent();
+            List<String> hashtags = feedRequest.getHashtags();
+            String imageUrl = feedRequest.getImageUrl(); // 현재 이미지 URL 사용 (추후 구현 필요)
+
+            // Feed 생성 로직 호출 (이미지 업로드 로직이 필요하다면 추가 구현 필요)
+            Feed createdFeed = feedService.createFeed(content, null, hashtags);
+
+            return ResponseEntity.ok(createdFeed);  // 성공적으로 생성된 피드를 반환합니다.
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
         }
     }
 
     // Success Page - 게시물 생성 성공 시 보여주는 페이지
     @GetMapping("/success")
     public String successPage() {
-        return "feed-create-success"; // 성공 페이지를 보여주는 뷰 이름 반환 (feed-create-success로 수정하여 templates와 일치)
+        return "feed-create-success";
     }
 
     // 게시물 수정 페이지로 이동하는 메서드
     @GetMapping("/edit/{id}")
     public String editFeedPage(@PathVariable("id") int id, Model model) {
-        Feed feed = feedService.getFeedById(id); // 서비스로부터 피드를 가져옴
+        Feed feed = feedService.getFeedById(id);
         model.addAttribute("feed", feed);
-        return "feed-edit";  // 수정 페이지로 이동 (feed-edit.html)
+        return "feed-edit";
     }
 
     // 게시물 수정 요청을 처리하는 메서드
     @PutMapping("/edit/{id}")
     public ResponseEntity<?> editFeed(@PathVariable("id") int id, @RequestBody Feed updatedFeed) {
         try {
-            // 게시물 내용만 수정합니다 (이미지는 수정하지 않음)
+            // 게시물 내용 및 해시태그 수정
             feedService.updateFeed(id, updatedFeed);
             return ResponseEntity.ok("게시물이 성공적으로 수정되었습니다.");
         } catch (Exception e) {
@@ -63,11 +73,49 @@ public class feed_create_controller {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteFeed(@PathVariable("id") int id) {
         try {
-            feedService.deleteFeedById(id); // 피드 삭제
+            feedService.deleteFeedById(id);
             return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("게시글 삭제 중 오류가 발생했습니다.");
         }
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<?> testExtractHashtags() {
+        feedService.testExtractHashtags();
+        return ResponseEntity.ok("Hashtags test completed, check logs.");
+    }
+
+
+    // FeedRequest 클래스 정의
+    public static class FeedRequest {
+        private String content;
+        private List<String> hashtags;
+        private String imageUrl;
+
+        // Getters and Setters
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public List<String> getHashtags() {
+            return hashtags;
+        }
+
+        public void setHashtags(List<String> hashtags) {
+            this.hashtags = hashtags;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+    }
 }
