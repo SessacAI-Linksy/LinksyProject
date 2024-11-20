@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,20 +27,30 @@ public class feed_create_controller {
     }
 
     // Create Feed - JSON 데이터를 받는 게시물 생성 메서드
-    @PostMapping("/create")
-    public ResponseEntity<?> createFeed(@RequestBody FeedRequest feedRequest) {
+    @PostMapping(value = "/create", consumes = {"multipart/form-data"})
+    public ResponseEntity<?> createFeed(@RequestParam("content") String content,
+                                        @RequestParam(value = "hashtags", required = false) List<String> hashtags,
+                                        @RequestParam(value = "images", required = false) MultipartFile[] images) {
         try {
-            // FeedRequest에서 content, hashtags, imageUrl을 받습니다.
-            String content = feedRequest.getContent();
-            List<String> hashtags = feedRequest.getHashtags();
-            String imageUrl = feedRequest.getImageUrl(); // 현재 이미지 URL 사용 (추후 구현 필요)
+            // 로그로 받은 데이터 확인
+            System.out.println("받은 콘텐츠: " + content);
+            if (hashtags != null) {
+                System.out.println("받은 해시태그들: " + hashtags);
+            }
+            if (images != null) {
+                System.out.println("받은 이미지 개수: " + images.length);
+                for (MultipartFile image : images) {
+                    System.out.println("받은 이미지 이름: " + image.getOriginalFilename());
+                }
+            }
 
-            // Feed 생성 로직 호출 (이미지 업로드 로직이 필요하다면 추가 구현 필요)
-            Feed createdFeed = feedService.createFeed(content, null, hashtags);
+            // 피드 생성 로직 호출 (이미지 업로드 로직 포함)
+            Feed createdFeed = feedService.createFeed(content, images, hashtags);
 
             return ResponseEntity.ok(createdFeed);  // 성공적으로 생성된 피드를 반환합니다.
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미지 업로드 중 오류 발생");
         }
     }
 

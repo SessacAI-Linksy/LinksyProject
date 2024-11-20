@@ -42,66 +42,93 @@ public class FeedCreateService {
     private FeedImageRepository feedImageRepository;
 
     // 게시물 생성 메서드
-    @Transactional
-    public Feed createFeed(String content, MultipartFile image, List<String> hashtags) throws IOException {
+    @Transactional // 트랜잭션 추가
+    public Feed createFeed(String content, MultipartFile[] images, List<String> hashtags) throws IOException {
+        // 콘텐츠 체크
         if (content == null || content.isEmpty()) {
-            throw new IllegalArgumentException("Content cannot be empty");
+            logger.error("콘텐츠가 비어 있습니다. 피드를 생성할 수 없습니다.");
+            throw new IllegalArgumentException("콘텐츠는 비어 있을 수 없습니다.");
         }
+        logger.info("새 피드를 생성 중, 콘텐츠: {}", content);
 
+        // 피드 생성
         Feed newFeed = new Feed();
         newFeed.setFeedContent(content);
         newFeed.setFeedTime(new Timestamp(System.currentTimeMillis()));
 
         Feed savedFeed = feedRepository.save(newFeed);
         if (savedFeed == null) {
-            throw new RuntimeException("Failed to save feed");
+            logger.error("피드 저장 실패");
+            throw new RuntimeException("피드 저장 실패");
         }
+        logger.info("피드 저장 성공, ID: {}", savedFeed.getFeedId());
 
-        // 이미지가 제공되었는지 체크
-        if (image != null && !image.isEmpty()) {
-            String originalFilename = image.getOriginalFilename();
-            String fileName = UUID.randomUUID().toString();
-            if (originalFilename != null) {
-                fileName += "_" + originalFilename;
-            } else {
-                fileName += "_unknown.png";
-            }
+        // 이미지 처리
+        if (images != null && images.length > 0) {
+            for (MultipartFile image : images) {
+                if (!image.isEmpty()) {
+                    String originalFilename = image.getOriginalFilename();
+                    String fileName = UUID.randomUUID().toString();
+                    if (originalFilename != null) {
+                        fileName += "_" + originalFilename;
+                    } else {
+                        fileName += "_unknown.png";
+                    }
 
-            String uploadDir = "uploads/";
-            File dir = new File(uploadDir);
+                    String uploadDir = "uploads/";
+                    File dir = new File(uploadDir);
 
-            if (!dir.exists()) {
-                boolean isCreated = dir.mkdirs();
-                if (!isCreated) {
-                    throw new IOException("Failed to create directory: " + uploadDir);
+                    if (!dir.exists()) {
+                        boolean isCreated = dir.mkdirs();
+                        if (!isCreated) {
+                            logger.error("디렉터리 생성 실패: {}", uploadDir);
+                            throw new IOException("디렉터리 생성 실패: " + uploadDir);
+                        }
+                    }
+
+                    File uploadedFile = new File(Paths.get(uploadDir, fileName).toString());
+                    image.transferTo(uploadedFile);
+
+                    FeedImage feedImage = new FeedImage();
+                    feedImage.setFeed(savedFeed);
+                    feedImage.setImgName(uploadDir + fileName);
+                    feedImageRepository.save(feedImage);
+                    logger.info("이미지 저장 성공: {}", feedImage.getImgName());
+                } else {
+                    logger.warn("빈 이미지가 감지되어 스킵합니다...");
                 }
             }
-
-            File uploadedFile = new File(Paths.get(uploadDir, fileName).toString());
-            image.transferTo(uploadedFile);
-
-            FeedImage feedImage = new FeedImage();
-            feedImage.setFeed(savedFeed);
-            feedImage.setImgName(uploadDir + fileName);
-            feedImageRepository.save(feedImage);
+        } else {
+            logger.warn("이미지가 제공되지 않았습니다.");
         }
 
-        // 해시태그 저장: 추출된 해시태그와 사용자가 입력한 해시태그를 모두 사용
-        Set<String> allHashtags = new HashSet<>(hashtags);
-        allHashtags.addAll(extractHashtags(content));
+        // 콘텐츠에서 해시태그 추출
+        List<String> extractedHashtags = extractHashtags(content);
 
-        for (String tag : allHashtags) {
-            Hashtag hashtag = hashtagRepository.findByHashtag(tag);
-            if (hashtag == null) {
-                hashtag = new Hashtag();
-                hashtag.setHashtag(tag);
-                hashtag = hashtagRepository.save(hashtag);
-                logger.info("새로운 해시태그 저장: {}", hashtag.getHashtag());
-            } else {
-                logger.info("기존 해시태그 사용: {}", hashtag.getHashtag());
+        // 추출된 해시태그와 입력된 해시태그를 합쳐 중복 제거
+        if (hashtags == null) {
+            hashtags = new ArrayList<>();
+        }
+        hashtags.addAll(extractedHashtags);
+        hashtags = hashtags.stream().distinct().collect(Collectors.toList());
+
+        // 해시태그 저장
+        if (!hashtags.isEmpty()) {
+            for (String tag : hashtags) {
+                Hashtag hashtag = hashtagRepository.findByHashtag(tag);
+                if (hashtag == null) {
+                    hashtag = new Hashtag();
+                    hashtag.setHashtag(tag);
+                    hashtag = hashtagRepository.save(hashtag);
+                    logger.info("새 해시태그 저장: {}", tag);
+                } else {
+                    logger.info("이미 존재하는 해시태그: {}", tag);
+                }
+
+                saveFeedHashtag(savedFeed, hashtag);
             }
-
-            saveFeedHashtag(savedFeed, hashtag);
+        } else {
+            logger.warn("해시태그가 제공되지 않았습니다.");
         }
 
         return savedFeed;
@@ -123,7 +150,6 @@ public class FeedCreateService {
         }
     }
 
-    // 해시태그 추출 메서드
     private List<String> extractHashtags(String content) {
         if (content == null || content.isEmpty()) {
             logger.debug("입력된 content가 비어있습니다.");
@@ -133,8 +159,8 @@ public class FeedCreateService {
         logger.debug("입력된 content: {}", content);
 
         List<String> hashtags = new ArrayList<>();
-        // 한글, 영문, 숫자, 언더스코어를 포함하는 패턴
-        Pattern pattern = Pattern.compile("#[ㄱ-ㅎ가-힣a-zA-Z0-9_]+");
+        // 모든 언어의 글자와 숫자를 포함하는 패턴으로 해시태그 추출
+        Pattern pattern = Pattern.compile("#[\\p{L}\\p{N}_]+");
         Matcher matcher = pattern.matcher(content);
 
         while (matcher.find()) {
@@ -143,27 +169,33 @@ public class FeedCreateService {
             logger.debug("추출된 해시태그: {}", hashtag);
         }
 
-        logger.info("전체 추출된 해시태그 목록: {}", hashtags);
+        if (hashtags.isEmpty()) {
+            logger.warn("해시태그가 추출되지 않았습니다. 입력된 콘텐츠: {}", content);
+        } else {
+            logger.info("전체 추출된 해시태그 목록: {}", hashtags);
+        }
 
-        return hashtags.stream()
-                .distinct()
-                .collect(Collectors.toList());
+        return hashtags.stream().distinct().collect(Collectors.toList());
     }
 
     // 게시물 ID로 게시물 조회 메서드
     public Feed getFeedById(int id) {
         return feedRepository.findById(id).orElseThrow(() -> new RuntimeException("Feed not found"));
     }
+
     // 테스트용 메서드 추가
     public void testExtractHashtags() {
         String testContent = "테스트 #안녕하세요 #Hello #테스트123 #한글_태그 #English_Tag";
         logger.info("==== 해시태그 추출 테스트 시작 ====");
         logger.info("테스트 문자열: {}", testContent);
         List<String> hashtags = extractHashtags(testContent);
-        logger.info("추출 결과: {}", hashtags);
+        if (hashtags.isEmpty()) {
+            logger.error("해시태그가 추출되지 않았습니다. 입력 문자열: {}", testContent);
+        } else {
+            logger.info("추출 결과: {}", hashtags);
+        }
         logger.info("==== 해시태그 추출 테스트 종료 ====");
     }
-
 
     // 게시물 수정 메서드
     @Transactional
