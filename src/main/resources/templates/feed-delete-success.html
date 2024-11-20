@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시물이 삭제되었습니다</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+    #successContainer {
+      text-align: center;
+      position: relative; /* 부모 요소에 상대적 위치 지정 */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+    }
+    .checkIcon {
+      font-size: 80px;
+      color: #FF007F;
+    }
+    h1 {
+      margin-top: 20px;
+    }
+    #closeButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    #closeButton:hover {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+<div id="successContainer">
+  <button id="closeButton" onclick="closePage()">&times;</button> <!-- X 버튼 추가 -->
+  <div class="checkIcon">&#x2714;</div>
+  <h1>게시물이 삭제되었습니다.</h1>
+</div>
+
+<script>
+  function closePage() {
+    // 창 닫기: 팝업으로 열려있다면 창을 닫고, 그렇지 않으면 현재 페이지 숨김
+    if (window.opener) {
+      window.close(); // 팝업으로 열린 경우 창 닫기
+    } else {
+      document.getElementById('successContainer').style.display = 'none'; // 페이지 자체가 닫을 수 없는 경우 숨기기
+    }
+  }
+</script>
+</body>
+</html>

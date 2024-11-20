@@ -86,17 +86,46 @@
   <div id="popupDetails">
     선택한 게시물은 삭제된 이후 되돌릴 수 없습니다.
   </div>
+  <input type="hidden" id="feedId" value=""> <!-- 수정할 피드 ID 값을 설정 -->
   <button class="popupButton editButton" onclick="editPost()">수정</button>
   <button class="popupButton deleteButton" onclick="deletePost()">삭제</button>
 </div>
 
 <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const feedId = window.location.pathname.split("/").pop();
+    document.getElementById('feedId').value = feedId;
+  });
   function editPost() {
-    alert('게시글을 수정합니다.');
+    const feedId = document.getElementById('feedId').value;
+    if (feedId) {
+      window.location.href = `/feed/edit/${feedId}`;
+    } else {
+      alert('피드 ID가 설정되지 않았습니다.');
+    }
   }
 
   function deletePost() {
-    alert('게시글을 삭제합니다.');
+    const feedId = document.getElementById('feedId').value;
+    if (feedId) {
+      fetch(`/feed/delete/${feedId}`, {
+        method: 'DELETE'
+      })
+              .then(response => {
+                if (response.ok) {
+                  alert('게시물이 성공적으로 삭제되었습니다.');
+                  window.location.href = '/feed/deletesuccess';
+                } else {
+                  throw new Error('게시물 삭제 중 오류가 발생했습니다.');
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('게시물 삭제 중 오류가 발생했습니다.');
+              });
+    } else {
+      alert('피드 ID가 설정되지 않았습니다.');
+    }
   }
 
   function closePopup() {

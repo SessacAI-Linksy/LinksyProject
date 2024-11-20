@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 @Controller
@@ -47,7 +48,7 @@ public class feed_create_controller {
             // 피드 생성 로직 호출 (이미지 업로드 로직 포함)
             Feed createdFeed = feedService.createFeed(content, images, hashtags);
 
-            return ResponseEntity.ok(createdFeed);  // 성공적으로 생성된 피드를 반환합니다.
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/feed/success")).build(); // 생성 성공 후 리다이렉트
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미지 업로드 중 오류 발생");
@@ -58,6 +59,27 @@ public class feed_create_controller {
     @GetMapping("/success")
     public String successPage() {
         return "feed-create-success"; // 성공 페이지 (feed-create-success.html)를 반환
+    }
+
+    // Edit/Delete Page - 수정 또는 삭제 확인 페이지
+    @GetMapping("/editordelete/{id}")
+    public String editOrDeletePage(@PathVariable("id") int id, Model model) {
+        // Feed 정보를 모델에 추가하여 페이지에 전달
+        Feed feed = feedService.getFeedById(id);
+        model.addAttribute("feed", feed);
+        return "feed-modifyordelete"; // edit-delete-popup.html 반환
+    }
+
+    // Success Page - 게시물 수정 성공 시 보여주는 페이지
+    @GetMapping("/editsuccess")
+    public String editsuccessPage() {
+        return "feed-modify-success"; // 성공 페이지 (feed-modify-success.html)를 반환
+    }
+
+    // Success Page - 게시물 삭제 성공 시 보여주는 페이지
+    @GetMapping("/deletesuccess")
+    public String deletesuccessPage() {
+        return "feed-delete-success"; // 성공 페이지 (feed-delete-success.html)를 반환
     }
 
     // 게시물 수정 페이지로 이동하는 메서드
@@ -85,7 +107,7 @@ public class feed_create_controller {
         try {
             // 게시물 내용 및 해시태그 수정
             feedService.updateFeed(id, updatedFeed);
-            return ResponseEntity.ok("게시물이 성공적으로 수정되었습니다.");
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/feed/editsuccess")).build(); // 수정 성공 후 리다이렉트
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시물 수정 중 오류가 발생했습니다.");
         }
@@ -96,7 +118,7 @@ public class feed_create_controller {
     public ResponseEntity<?> deleteFeed(@PathVariable("id") int id) {
         try {
             feedService.deleteFeedById(id);
-            return ResponseEntity.ok("게시글이 성공적으로 삭제되었습니다.");
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("/feed/deletesuccess")).build(); // 삭제 성공 후 리다이렉트
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("게시글 삭제 중 오류가 발생했습니다.");
         }
@@ -107,7 +129,6 @@ public class feed_create_controller {
         feedService.testExtractHashtags();
         return ResponseEntity.ok("Hashtags test completed, check logs.");
     }
-
 
     // FeedRequest 클래스 정의
     public static class FeedRequest {
