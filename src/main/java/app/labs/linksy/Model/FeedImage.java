@@ -1,5 +1,7 @@
 package app.labs.linksy.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity // JPA가 이 클래스를 엔티티로 인식하도록 설정
@@ -14,6 +16,7 @@ public class FeedImage {
 
 	@ManyToOne
 	@JoinColumn(name = "FEED_ID", nullable = false)
+	@JsonBackReference // 순환 참조 방지 어노테이션 추가
 	Feed feed;
 
 	@Column(name = "IMG_NAME")

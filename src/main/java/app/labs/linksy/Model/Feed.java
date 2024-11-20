@@ -1,5 +1,7 @@
 package app.labs.linksy.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -29,6 +31,7 @@ public class Feed {
 
 	// Feed와 FeedImage의 관계 설정
 	@OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference // 순환 참조 방지
 	private List<FeedImage> feedImages;
 
 	// Getters and Setters

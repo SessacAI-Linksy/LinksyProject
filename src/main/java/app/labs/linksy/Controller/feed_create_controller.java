@@ -65,7 +65,18 @@ public class feed_create_controller {
     public String editFeedPage(@PathVariable("id") int id, Model model) {
         Feed feed = feedService.getFeedById(id);
         model.addAttribute("feed", feed);
-        return "feed-edit";
+        return "feed-modify";
+    }
+
+    // 게시물 ID로 게시물을 조회하는 메서드
+    @GetMapping("/{id}")
+    public ResponseEntity<Feed> getFeedById(@PathVariable("id") int id) {
+        try {
+            Feed feed = feedService.getFeedById(id); // FeedService를 통해 데이터베이스에서 피드를 가져옴
+            return ResponseEntity.ok(feed);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // 피드를 찾을 수 없으면 404 응답을 반환
+        }
     }
 
     // 게시물 수정 요청을 처리하는 메서드

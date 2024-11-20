@@ -75,7 +75,7 @@ public class FeedCreateService {
                         fileName += "_unknown.png";
                     }
 
-                    String uploadDir = "uploads/";
+                    String uploadDir = "C:/Users/quien/LinksyProject/uploads/";
                     File dir = new File(uploadDir);
 
                     if (!dir.exists()) {
@@ -88,6 +88,7 @@ public class FeedCreateService {
 
                     File uploadedFile = new File(Paths.get(uploadDir, fileName).toString());
                     image.transferTo(uploadedFile);
+                    logger.info("이미지 저장 성공: 파일 경로 - {}", uploadedFile.getAbsolutePath());
 
                     FeedImage feedImage = new FeedImage();
                     feedImage.setFeed(savedFeed);
@@ -178,11 +179,6 @@ public class FeedCreateService {
         return hashtags.stream().distinct().collect(Collectors.toList());
     }
 
-    // 게시물 ID로 게시물 조회 메서드
-    public Feed getFeedById(int id) {
-        return feedRepository.findById(id).orElseThrow(() -> new RuntimeException("Feed not found"));
-    }
-
     // 테스트용 메서드 추가
     public void testExtractHashtags() {
         String testContent = "테스트 #안녕하세요 #Hello #테스트123 #한글_태그 #English_Tag";
@@ -197,8 +193,17 @@ public class FeedCreateService {
         logger.info("==== 해시태그 추출 테스트 종료 ====");
     }
 
+    // 게시물 ID로 게시물을 조회하는 메서드
+    public Feed getFeedById(int id) {
+        Optional<Feed> optionalFeed = feedRepository.findById(id);
+        if (optionalFeed.isPresent()) {
+            return optionalFeed.get();
+        } else {
+            throw new RuntimeException("Feed not found with ID: " + id);
+        }
+    }
+
     // 게시물 수정 메서드
-    @Transactional
     public void updateFeed(int id, Feed updatedFeed) {
         Feed existingFeed = getFeedById(id);
         existingFeed.setFeedContent(updatedFeed.getFeedContent());
