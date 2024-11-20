@@ -40,7 +40,7 @@
     #imageUploadContainer {
       background-color: #f8f8f8;
       border: 2px dashed #cccccc;
-      padding: 60px;
+      padding: 20px;
       text-align: center;
       margin-bottom: 20px;
       border-radius: 10px;
@@ -93,6 +93,21 @@
       font-size: 80px;
       color: #ff007f;
     }
+    #previewContainer {
+      display: flex;
+      justify-content:center; /* 가운데 정렬로 수정됨 */
+      gap:20px; /* 이미지 간의 간격을 늘려 더 넓게 보이도록 수정됨 */
+      margin-top:20px; /* 상단 여백을 조금 늘려 더 여유 공간을 제공 */
+      flex-wrap: wrap;
+    }
+    .previewImage {
+      width:200px; /* 미리보기 이미지를 크게 보이도록 크기 증가 */
+      height:200px; /* 미리보기 이미지를 크게 보이도록 크기 증가 */
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
   </style>
 </head>
 <body>
@@ -108,7 +123,8 @@
       <i class="bi bi-camera" style="font-size: 50px;"></i>
       <p>사진을 선택해 주세요</p>
       <button type="button" onclick="document.getElementById('fileInput').click()">컴퓨터에서 선택</button>
-      <input type="file" id="fileInput" style="display: none;">
+      <input type="file" id="fileInput" style="display: none;" multiple onchange="previewImages()">
+      <div id="previewContainer"></div>
     </div>
     <div id="contentContainer">
       <textarea id="feedContentInput" placeholder="피드를 적어주세요"></textarea>
@@ -169,6 +185,26 @@
 
   function closeFeed() {
     document.getElementById('feedFormContainer').style.display = 'none';
+  }
+
+  function previewImages() {
+    const files = document.getElementById('fileInput').files;
+    const previewContainer = document.getElementById('previewContainer');
+    previewContainer.innerHTML = '';
+
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'previewImage';
+        img.onclick = function() {
+          window.open(e.target.result, '_blank');
+        };
+        previewContainer.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
   }
 </script>
 </body>

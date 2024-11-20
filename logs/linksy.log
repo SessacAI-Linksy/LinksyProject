@@ -415,3 +415,96 @@
 2024-11-20T19:18:31.998+09:00  INFO 25656 --- [Linksy] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-11-20T19:18:32.000+09:00  INFO 25656 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-11-20T19:18:32.005+09:00  INFO 25656 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-20T19:24:15.903+09:00  INFO 24200 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Starting LinksyApplication using Java 17.0.13 with PID 24200 (C:\Users\quien\Desktop\LinksyProject\LinksyProject\build\classes\java\main started by quien in C:\Users\quien\Desktop\LinksyProject\LinksyProject)
+2024-11-20T19:24:15.905+09:00 DEBUG 24200 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-11-20T19:24:15.906+09:00  INFO 24200 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-11-20T19:24:16.050+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\quien\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc11\21.9.0.0\1aad2e20684ee075bb9ebdca2d83f028e4fd35fa\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/quien/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc11/21.9.0.0/1aad2e20684ee075bb9ebdca2d83f028e4fd35fa/oraclepki.jar
+2024-11-20T19:24:16.051+09:00  INFO 24200 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-20T19:24:16.051+09:00  INFO 24200 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-20T19:24:16.466+09:00  INFO 24200 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-20T19:24:16.507+09:00  INFO 24200 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 5 JPA repository interfaces.
+2024-11-20T19:24:16.882+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2024-11-20T19:24:16.891+09:00  INFO 24200 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-20T19:24:16.892+09:00  INFO 24200 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2024-11-20T19:24:17.018+09:00  INFO 24200 --- [Linksy] [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-11-20T19:24:17.021+09:00  INFO 24200 --- [Linksy] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-20T19:24:17.022+09:00  INFO 24200 --- [Linksy] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 970 ms
+2024-11-20T19:24:17.121+09:00  INFO 24200 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-20T19:24:17.126+09:00  WARN 24200 --- [Linksy] [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-11-20T19:24:17.393+09:00  INFO 24200 --- [Linksy] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@46947a4b
+2024-11-20T19:24:17.395+09:00  INFO 24200 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-20T19:24:17.420+09:00  INFO 24200 --- [Linksy] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-20T19:24:17.457+09:00  INFO 24200 --- [Linksy] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-20T19:24:17.479+09:00  INFO 24200 --- [Linksy] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-20T19:24:17.686+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-20T19:24:18.461+09:00  INFO 24200 --- [Linksy] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-20T19:24:18.463+09:00  INFO 24200 --- [Linksy] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-20T19:24:18.772+09:00  WARN 24200 --- [Linksy] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-20T19:24:19.023+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-11-20T19:24:19.049+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2024-11-20T19:24:19.050+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-11-20T19:24:19.050+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@43106132]]
+2024-11-20T19:24:19.050+09:00  INFO 24200 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-11-20T19:24:19.055+09:00  INFO 24200 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Started LinksyApplication in 3.39 seconds (process running for 3.844)
+2024-11-20T19:24:21.667+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20T19:24:21.667+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-20T19:24:21.668+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2024-11-20T19:25:00.244+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 새 피드를 생성 중, 콘텐츠: 사진 두개 올린다 #회의사진#discussionPic
+2024-11-20T19:25:00.279+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 피드 저장 성공, ID: 113
+2024-11-20T19:25:00.281+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 이미지 저장 성공: uploads/793a67e4-ebd5-43be-97bc-f7647384242d_793286472808580313.png
+2024-11-20T19:25:00.301+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 이미지 저장 성공: uploads/f84444b8-6d24-480c-91f4-e31ecf32afde_793284948095170079.png
+2024-11-20T19:25:00.302+09:00 DEBUG 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 입력된 content: 사진 두개 올린다 #회의사진#discussionPic
+2024-11-20T19:25:00.305+09:00 DEBUG 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 추출된 해시태그: #회의사진
+2024-11-20T19:25:00.306+09:00 DEBUG 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 추출된 해시태그: #discussionPic
+2024-11-20T19:25:00.307+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 전체 추출된 해시태그 목록: [#회의사진, #discussionPic]
+2024-11-20T19:25:00.442+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 새 해시태그 저장: #회의사진
+2024-11-20T19:25:00.477+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 피드와 해시태그 관계 저장: Feed ID = 113, Hashtag ID = 39
+2024-11-20T19:25:00.492+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 새 해시태그 저장: #discussionPic
+2024-11-20T19:25:00.496+09:00  INFO 24200 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 피드와 해시태그 관계 저장: Feed ID = 113, Hashtag ID = 40
+2024-11-20T19:25:19.031+09:00  INFO 24200 --- [Linksy] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-11-20T19:26:03.289+09:00  INFO 24200 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-11-20T19:26:03.289+09:00  INFO 24200 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@43106132]]
+2024-11-20T19:26:03.289+09:00  INFO 24200 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-11-20T19:26:03.696+09:00  INFO 24200 --- [Linksy] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-20T19:26:03.698+09:00  INFO 24200 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-20T19:26:03.704+09:00  INFO 24200 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-20T19:29:00.103+09:00  INFO 18868 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Starting LinksyApplication using Java 17.0.13 with PID 18868 (C:\Users\quien\Desktop\LinksyProject\LinksyProject\build\classes\java\main started by quien in C:\Users\quien\Desktop\LinksyProject\LinksyProject)
+2024-11-20T19:29:00.104+09:00 DEBUG 18868 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-11-20T19:29:00.104+09:00  INFO 18868 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-11-20T19:29:00.253+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\quien\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc11\21.9.0.0\1aad2e20684ee075bb9ebdca2d83f028e4fd35fa\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/quien/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc11/21.9.0.0/1aad2e20684ee075bb9ebdca2d83f028e4fd35fa/oraclepki.jar
+2024-11-20T19:29:00.253+09:00  INFO 18868 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-20T19:29:00.253+09:00  INFO 18868 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-20T19:29:00.670+09:00  INFO 18868 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-20T19:29:00.707+09:00  INFO 18868 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 5 JPA repository interfaces.
+2024-11-20T19:29:01.051+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2024-11-20T19:29:01.059+09:00  INFO 18868 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-20T19:29:01.059+09:00  INFO 18868 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2024-11-20T19:29:01.214+09:00  INFO 18868 --- [Linksy] [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-11-20T19:29:01.220+09:00  INFO 18868 --- [Linksy] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-20T19:29:01.221+09:00  INFO 18868 --- [Linksy] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 968 ms
+2024-11-20T19:29:01.351+09:00  INFO 18868 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-20T19:29:01.358+09:00  WARN 18868 --- [Linksy] [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-11-20T19:29:01.557+09:00  INFO 18868 --- [Linksy] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@1dfb2529
+2024-11-20T19:29:01.559+09:00  INFO 18868 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-20T19:29:01.591+09:00  INFO 18868 --- [Linksy] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-20T19:29:01.636+09:00  INFO 18868 --- [Linksy] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-20T19:29:01.664+09:00  INFO 18868 --- [Linksy] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-20T19:29:01.874+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-20T19:29:02.650+09:00  INFO 18868 --- [Linksy] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-20T19:29:02.652+09:00  INFO 18868 --- [Linksy] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-20T19:29:02.958+09:00  WARN 18868 --- [Linksy] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-20T19:29:03.181+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-11-20T19:29:03.222+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2024-11-20T19:29:03.223+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-11-20T19:29:03.224+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4cc635d5]]
+2024-11-20T19:29:03.224+09:00  INFO 18868 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-11-20T19:29:03.228+09:00  INFO 18868 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Started LinksyApplication in 3.352 seconds (process running for 3.81)
+2024-11-20T19:29:07.913+09:00  INFO 18868 --- [Linksy] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-20T19:29:07.913+09:00  INFO 18868 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-20T19:29:07.914+09:00  INFO 18868 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-11-20T19:29:34.425+09:00  INFO 18868 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-11-20T19:29:34.425+09:00  INFO 18868 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4cc635d5]]
+2024-11-20T19:29:34.426+09:00  INFO 18868 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-11-20T19:29:34.823+09:00  INFO 18868 --- [Linksy] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-20T19:29:34.825+09:00  INFO 18868 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-20T19:29:34.838+09:00  INFO 18868 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
