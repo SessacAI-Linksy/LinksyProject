@@ -2143,3 +2143,211 @@ Caused by: org.hibernate.AnnotationException: Property 'app.labs.linksy.Model.Fe
 2024-11-21T12:08:17.323+09:00  INFO 7836 --- [Linksy] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-11-21T12:08:17.325+09:00  INFO 7836 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-11-21T12:08:17.330+09:00  INFO 7836 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-21T13:51:06.160+09:00  INFO 2732 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Starting LinksyApplication using Java 17.0.13 with PID 2732 (C:\Users\quien\Desktop\LinksyProject\LinksyProject\build\classes\java\main started by quien in C:\Users\quien\Desktop\LinksyProject\LinksyProject)
+2024-11-21T13:51:06.161+09:00 DEBUG 2732 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-11-21T13:51:06.162+09:00  INFO 2732 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-11-21T13:51:06.297+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\quien\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc11\21.9.0.0\1aad2e20684ee075bb9ebdca2d83f028e4fd35fa\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/quien/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc11/21.9.0.0/1aad2e20684ee075bb9ebdca2d83f028e4fd35fa/oraclepki.jar
+2024-11-21T13:51:06.297+09:00  INFO 2732 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-21T13:51:06.297+09:00  INFO 2732 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-21T13:51:06.690+09:00  INFO 2732 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-21T13:51:06.726+09:00  INFO 2732 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 5 JPA repository interfaces.
+2024-11-21T13:51:07.086+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2024-11-21T13:51:07.095+09:00  INFO 2732 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-21T13:51:07.095+09:00  INFO 2732 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2024-11-21T13:51:07.217+09:00  INFO 2732 --- [Linksy] [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-11-21T13:51:07.222+09:00  INFO 2732 --- [Linksy] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-21T13:51:07.222+09:00  INFO 2732 --- [Linksy] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 924 ms
+2024-11-21T13:51:07.324+09:00  INFO 2732 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-21T13:51:07.327+09:00  WARN 2732 --- [Linksy] [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-11-21T13:51:07.553+09:00  INFO 2732 --- [Linksy] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@35ed414e
+2024-11-21T13:51:07.554+09:00  INFO 2732 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-21T13:51:07.578+09:00  INFO 2732 --- [Linksy] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-21T13:51:07.613+09:00  INFO 2732 --- [Linksy] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-21T13:51:07.634+09:00  INFO 2732 --- [Linksy] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-21T13:51:07.840+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-21T13:51:08.747+09:00  INFO 2732 --- [Linksy] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-21T13:51:08.750+09:00  INFO 2732 --- [Linksy] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-21T13:51:09.048+09:00  WARN 2732 --- [Linksy] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-21T13:51:09.284+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-11-21T13:51:09.321+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2024-11-21T13:51:09.322+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-11-21T13:51:09.322+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@ede9114]]
+2024-11-21T13:51:09.323+09:00  INFO 2732 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-11-21T13:51:09.328+09:00  INFO 2732 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Started LinksyApplication in 3.409 seconds (process running for 3.851)
+2024-11-21T13:52:09.319+09:00  INFO 2732 --- [Linksy] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-11-21T13:52:13.205+09:00  INFO 2732 --- [Linksy] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-21T13:52:13.206+09:00  INFO 2732 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-21T13:52:13.207+09:00  INFO 2732 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-11-21T14:22:09.329+09:00  INFO 2732 --- [Linksy] [MessageBroker-8] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(1)-CONNECTED(1)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 6], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 16, active threads = 1, queued tasks = 2, completed tasks = 372]
+2024-11-21T14:25:14.381+09:00  INFO 2732 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-11-21T14:25:14.381+09:00  INFO 2732 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@ede9114]]
+2024-11-21T14:25:14.381+09:00  INFO 2732 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-11-21T14:25:14.850+09:00  INFO 2732 --- [Linksy] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-21T14:25:14.852+09:00  INFO 2732 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-21T14:25:14.860+09:00  INFO 2732 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-21T14:25:19.443+09:00  INFO 22468 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Starting LinksyApplication using Java 17.0.13 with PID 22468 (C:\Users\quien\Desktop\LinksyProject\LinksyProject\build\classes\java\main started by quien in C:\Users\quien\Desktop\LinksyProject\LinksyProject)
+2024-11-21T14:25:19.444+09:00 DEBUG 22468 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-11-21T14:25:19.444+09:00  INFO 22468 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-11-21T14:25:19.579+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\quien\.gradle\caches\modules-2\files-2.1\com.oracle.database.jdbc\ojdbc11\21.9.0.0\1aad2e20684ee075bb9ebdca2d83f028e4fd35fa\ojdbc11-21.9.0.0.jar referenced one or more files that do not exist: file:/C:/Users/quien/.gradle/caches/modules-2/files-2.1/com.oracle.database.jdbc/ojdbc11/21.9.0.0/1aad2e20684ee075bb9ebdca2d83f028e4fd35fa/oraclepki.jar
+2024-11-21T14:25:19.580+09:00  INFO 22468 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-11-21T14:25:19.580+09:00  INFO 22468 --- [Linksy] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-11-21T14:25:20.004+09:00  INFO 22468 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-21T14:25:20.041+09:00  INFO 22468 --- [Linksy] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 5 JPA repository interfaces.
+2024-11-21T14:25:20.442+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2024-11-21T14:25:20.453+09:00  INFO 22468 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-21T14:25:20.453+09:00  INFO 22468 --- [Linksy] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2024-11-21T14:25:20.594+09:00  INFO 22468 --- [Linksy] [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-11-21T14:25:20.600+09:00  INFO 22468 --- [Linksy] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-21T14:25:20.601+09:00  INFO 22468 --- [Linksy] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1021 ms
+2024-11-21T14:25:20.728+09:00  INFO 22468 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-21T14:25:20.733+09:00  WARN 22468 --- [Linksy] [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-11-21T14:25:21.045+09:00  INFO 22468 --- [Linksy] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@7657b1ca
+2024-11-21T14:25:21.046+09:00  INFO 22468 --- [Linksy] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-21T14:25:21.072+09:00  INFO 22468 --- [Linksy] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-21T14:25:21.117+09:00  INFO 22468 --- [Linksy] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-11-21T14:25:21.143+09:00  INFO 22468 --- [Linksy] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-11-21T14:25:21.348+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-11-21T14:25:22.074+09:00  INFO 22468 --- [Linksy] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-11-21T14:25:22.077+09:00  INFO 22468 --- [Linksy] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-21T14:25:22.372+09:00  WARN 22468 --- [Linksy] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-21T14:25:22.593+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-11-21T14:25:22.622+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2024-11-21T14:25:22.623+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-11-21T14:25:22.624+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3d65e510]]
+2024-11-21T14:25:22.624+09:00  INFO 22468 --- [Linksy] [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-11-21T14:25:22.630+09:00  INFO 22468 --- [Linksy] [restartedMain] app.labs.linksy.LinksyApplication        : Started LinksyApplication in 3.409 seconds (process running for 3.895)
+2024-11-21T14:25:24.295+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-21T14:25:24.295+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-21T14:25:24.296+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-11-21T14:25:36.573+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 새 피드를 생성 중, 콘텐츠: ㅁㄴㅇㅁㄹㄴㅁ #ㅁㄴㄻㄴㅇ
+2024-11-21T14:25:36.612+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 피드 저장 성공, ID: 131
+2024-11-21T14:25:36.613+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 이미지 저장 성공: 파일 경로 - C:\Users\quien\LinksyProject\uploads\8e1c2960-ce7d-4d55-8517-c50cae586373_DALL·E 2024-10-28 11.43.48 - A sleek and charming black cat with piercing yellow-green eyes, sitting proudly on the counter of a cozy, mystical cliffside café. The cat has an air .webp
+2024-11-21T14:25:36.615+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 이미지 저장 성공: C:/Users/quien/LinksyProject/uploads/8e1c2960-ce7d-4d55-8517-c50cae586373_DALL·E 2024-10-28 11.43.48 - A sleek and charming black cat with piercing yellow-green eyes, sitting proudly on the counter of a cozy, mystical cliffside café. The cat has an air .webp
+2024-11-21T14:25:36.615+09:00 DEBUG 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 입력된 content: ㅁㄴㅇㅁㄹㄴㅁ #ㅁㄴㄻㄴㅇ
+2024-11-21T14:25:36.615+09:00 DEBUG 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 추출된 해시태그: #ㅁㄴㄻㄴㅇ
+2024-11-21T14:25:36.615+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 전체 추출된 해시태그 목록: [#ㅁㄴㄻㄴㅇ]
+2024-11-21T14:25:36.704+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 새 해시태그 저장: #ㅁㄴㄻㄴㅇ
+2024-11-21T14:25:36.725+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-2] a.labs.linksy.Service.FeedCreateService  : 피드와 해시태그 관계 저장: Feed ID = 131, Hashtag ID = 69
+2024-11-21T14:25:36.733+09:00  WARN 22468 --- [Linksy] [http-nio-80-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 12899, SQLState: 72000
+2024-11-21T14:25:36.733+09:00 ERROR 22468 --- [Linksy] [http-nio-80-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-12899: "HR"."FEED_IMAGE"."IMG_NAME" 열에 대한 값이 너무 큼(실제: 260, 최대값: 100)
+
+2024-11-21T14:25:36.741+09:00 ERROR 22468 --- [Linksy] [http-nio-80-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.orm.jpa.JpaSystemException: could not execute statement [ORA-12899: "HR"."FEED_IMAGE"."IMG_NAME" 열에 대한 값이 너무 큼(실제: 260, 최대값: 100)
+] [insert into feed_image (feed_id,img_name,image_id) values (?,?,?)]] with root cause
+
+oracle.jdbc.OracleDatabaseException: ORA-12899: "HR"."FEED_IMAGE"."IMG_NAME" 열에 대한 값이 너무 큼(실제: 260, 최대값: 100)
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:636) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:563) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1230) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:771) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:298) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:511) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:162) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:1240) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.OracleStatement.executeSQLStatement(OracleStatement.java:1819) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1471) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3760) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.OraclePreparedStatement.executeLargeUpdate(OraclePreparedStatement.java:4061) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.OraclePreparedStatement.executeUpdate(OraclePreparedStatement.java:4036) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeUpdate(OraclePreparedStatementWrapper.java:995) ~[ojdbc11-21.9.0.0.jar:21.9.0.0.0]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:194) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.performNonBatchedMutation(AbstractMutationExecutor.java:134) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.MutationExecutorSingleNonBatched.performNonBatchedOperations(MutationExecutorSingleNonBatched.java:55) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.mutation.internal.AbstractMutationExecutor.execute(AbstractMutationExecutor.java:55) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.doStaticInserts(InsertCoordinatorStandard.java:194) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.coordinateInsert(InsertCoordinatorStandard.java:132) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.insert(InsertCoordinatorStandard.java:104) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:110) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:633) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:500) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:385) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:41) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:127) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1425) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:487) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:2324) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:1981) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:439) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:169) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:267) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:101) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.orm.jpa.JpaTransactionManager.doCommit(JpaTransactionManager.java:562) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processCommit(AbstractPlatformTransactionManager.java:795) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.commit(AbstractPlatformTransactionManager.java:758) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.commitTransactionAfterReturning(TransactionAspectSupport.java:663) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:413) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720) ~[spring-aop-6.1.14.jar:6.1.14]
+	at app.labs.linksy.Service.FeedCreateService$$SpringCGLIB$$0.createFeed(<generated>) ~[main/:na]
+	at app.labs.linksy.Controller.feed_create_controller.createFeed(feed_create_controller.java:49) ~[main/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.31.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.14.jar:6.1.14]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.31.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.14.jar:6.1.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.31.jar:10.1.31]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2024-11-21T14:26:01.603+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 새 피드를 생성 중, 콘텐츠: ㅁㄴㅇㅁㄹㄴㅁ #ㅁㄴㄻㄴㅇ
+2024-11-21T14:26:01.604+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 피드 저장 성공, ID: 132
+2024-11-21T14:26:01.605+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 이미지 저장 성공: 파일 경로 - C:\Users\quien\LinksyProject\uploads\12878cb3-59da-47e0-b873-3f280461e498_cat1.png
+2024-11-21T14:26:01.606+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 이미지 저장 성공: C:/Users/quien/LinksyProject/uploads/12878cb3-59da-47e0-b873-3f280461e498_cat1.png
+2024-11-21T14:26:01.606+09:00 DEBUG 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 입력된 content: ㅁㄴㅇㅁㄹㄴㅁ #ㅁㄴㄻㄴㅇ
+2024-11-21T14:26:01.606+09:00 DEBUG 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 추출된 해시태그: #ㅁㄴㄻㄴㅇ
+2024-11-21T14:26:01.606+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 전체 추출된 해시태그 목록: [#ㅁㄴㄻㄴㅇ]
+2024-11-21T14:26:01.608+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 새 해시태그 저장: #ㅁㄴㄻㄴㅇ
+2024-11-21T14:26:01.611+09:00  INFO 22468 --- [Linksy] [http-nio-80-exec-3] a.labs.linksy.Service.FeedCreateService  : 피드와 해시태그 관계 저장: Feed ID = 132, Hashtag ID = 70
+2024-11-21T14:26:22.619+09:00  INFO 22468 --- [Linksy] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-11-21T14:31:38.722+09:00  INFO 22468 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-11-21T14:31:38.723+09:00  INFO 22468 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3d65e510]]
+2024-11-21T14:31:38.723+09:00  INFO 22468 --- [Linksy] [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-11-21T14:31:39.097+09:00  INFO 22468 --- [Linksy] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-21T14:31:39.099+09:00  INFO 22468 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-21T14:31:39.107+09:00  INFO 22468 --- [Linksy] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
