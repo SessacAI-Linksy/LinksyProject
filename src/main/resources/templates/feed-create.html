@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+  <meta charset="UTF-8">
+  <title>Create/Edit Feed</title>
+  <style>
+    @font-face {
+      font-family: 'SBAggroB';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      font-family: 'SBAggroB', Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #feedFormContainer {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      position: relative; /* 부모 요소 기준으로 위치 설정 */
+    }
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #imageUploadContainer {
+      background-color: #f8f8f8;
+      border: 2px dashed #cccccc;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+    #createEditButton {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #createEditButton:hover {
+      background-color: #0056b3;
+    }
+    #contentContainer {
+      background-color: #f8f8f8;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    #feedContentInput {
+      width: 100%;
+      height: 80px;
+      border: none;
+      resize: none;
+      background: transparent;
+      font-size: 1em;
+      outline: none;
+    }
+    #closeButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      z-index: 100; /* 다른 요소보다 우선 보이게 설정 */
+    }
+    #closeButton:hover {
+      color: #ff0000;
+    }
+    #successMessage {
+      display: none; /* 기본적으로 숨김 */
+      text-align: center;
+      position: relative; /* 닫기 버튼 추가를 위한 상대 위치 지정 */
+    }
+    .checkIcon {
+      font-size: 80px;
+      color: #ff007f;
+    }
+    #previewContainer {
+      display: flex;
+      justify-content:center; /* 가운데 정렬로 수정됨 */
+      gap:20px; /* 이미지 간의 간격을 늘려 더 넓게 보이도록 수정됨 */
+      margin-top:20px; /* 상단 여백을 조금 늘려 더 여유 공간을 제공 */
+      flex-wrap: wrap;
+    }
+    .previewImage {
+      width:200px; /* 미리보기 이미지를 크게 보이도록 크기 증가 */
+      height:200px; /* 미리보기 이미지를 크게 보이도록 크기 증가 */
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+<div id="feedFormContainer">
+  <!-- 게시물 작성 폼 -->
+  <div id="formContent">
+    <div id="header">
+      <button id="closeButton" onclick="closeFeed()">&times;</button>
+      <h1>새 게시물 만들기</h1>
+      <button id="createEditButton" onclick="createFeed()">생성</button>
+    </div>
+    <div id="imageUploadContainer">
+      <i class="bi bi-camera" style="font-size: 50px;"></i>
+      <p>사진을 선택해 주세요</p>
+      <button type="button" onclick="document.getElementById('fileInput').click()">컴퓨터에서 선택</button>
+      <input type="file" id="fileInput" style="display: none;" multiple onchange="previewImages()">
+      <div id="previewContainer"></div>
+    </div>
+    <div id="contentContainer">
+      <textarea id="feedContentInput" placeholder="피드를 적어주세요"></textarea>
+    </div>
+  </div>
+
+  <!-- 성공 메시지 -->
+  <div id="successMessage">
+    <button id="closeButtonSuccess" onclick="closeFeed()">&times;</button>
+    <div class="checkIcon">&#x2714;</div>
+    <h1>게시물이 공유되었습니다.</h1>
+  </div>
+</div>
+
+<script>
+  function createFeed() {
+    const content = document.getElementById('feedContentInput').value;
+    const files = document.getElementById('fileInput').files;
+
+    // FormData 객체 생성
+    const formData = new FormData();
+    formData.append('content', content);
+
+    // 해시태그를 추출하여 FormData에 추가
+    const hashtags = content.match(/#\w+/g) || [];
+    hashtags.forEach((hashtag, index) => {
+      formData.append(`hashtags[${index}]`, hashtag);
+    });
+
+    // 선택된 파일들을 FormData에 추가
+    if (files.length > 0) {
+      Array.from(files).forEach((file, index) => {
+        formData.append('images', file);
+      });
+    }
+
+    // 서버로 POST 요청 전송
+    fetch('/feed/create', {
+      method: 'POST',
+      body: formData,
+    })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Network response was not ok');
+              }
+            })
+            .then(data => {
+              // 게시물 생성 성공 시 성공 메시지 표시
+              document.getElementById('formContent').style.display = 'none'; // 폼 숨기기
+              document.getElementById('successMessage').style.display = 'block'; // 성공 메시지 보여주기
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  }
+
+  function closeFeed() {
+    document.getElementById('feedFormContainer').style.display = 'none';
+  }
+
+  function previewImages() {
+    const files = document.getElementById('fileInput').files;
+    const previewContainer = document.getElementById('previewContainer');
+    previewContainer.innerHTML = '';
+
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'previewImage';
+        img.onclick = function() {
+          window.open(e.target.result, '_blank');
+        };
+        previewContainer.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+</script>
+</body>
+</html>

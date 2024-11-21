@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Like List</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+  <style>
+    @font-face {
+      font-family: 'SBAggroB';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'goorm-sans-bold';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/goorm-sans-bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+    body {
+      font-family: 'SBAggroB', Arial, sans-serif; font-weight: 100;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: flex-start; /* 가운데 정렬을 왼쪽으로 변경 */
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding-left: 300px; /* 왼쪽에서 300px 띄운 위치에 정렬 */
+    }
+
+    #likeListContainer {
+      width: 400px;
+      height: 400px; /* 창의 높이를 정사각형으로 설정 */
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow-y: auto; /* 스크롤이 가능하도록 설정 */
+      position: relative;
+    }
+
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    #header h1 {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: center;
+      flex-grow: 1;
+      margin: 0;
+    }
+
+    #closeButton {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #closeButton:hover {
+      color: #ff0000;
+    }
+
+    .divider {
+      border-bottom: 1px solid #cccccc;
+      margin-bottom: 20px;
+    }
+
+    .likeItem {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .profileImage {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .profileName {
+      flex: 1;
+      font-weight: bold;
+      color: #333333;
+    }
+
+    .followButton {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .followButton:hover {
+      background-color: #0056b3;
+    }
+
+    #likeListContainer::-webkit-scrollbar {
+      width: 8px; /* 스크롤바 너비 설정 */
+    }
+
+    #likeListContainer::-webkit-scrollbar-thumb {
+      background-color: #cccccc;
+      border-radius: 10px;
+    }
+
+    #likeListContainer::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+<div id="likeListContainer">
+  <div id="header">
+    <h1>좋아요</h1>
+    <button id="closeButton" onclick="closeLikeList()">&times;</button>
+  </div>
+  <div class="divider"></div> <!-- 회색 경계선 추가 -->
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">jaykchy</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">rodrigomac17</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">fed3h_</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">chelyh400</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">kvn.vermilion</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">alien_cowboy_gamer</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">jaykchy</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">rodrigomac17</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">fed3h_</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">chelyh400</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">kvn.vermilion</div>
+    <button class="followButton">팔로우</button>
+  </div>
+  <div class="likeItem">
+    <img src="https://via.placeholder.com/50" alt="Profile Image" class="profileImage">
+    <div class="profileName">alien_cowboy_gamer</div>
+    <button class="followButton">팔로우</button>
+  </div>
+</div>
+
+<script>
+  function closeLikeList() {
+    document.getElementById('likeListContainer').style.display = 'none';
+  }
+</script>
+</body>
+</html>

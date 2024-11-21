@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram Style Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    #notificationContainer {
+      background-color: #ffffff;
+      width: 320px;
+      height: 80vh;
+      padding: 20px;
+      overflow-y: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .notificationItem {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+    }
+    .profileImage {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      background-color: #3897f0;
+    }
+    #buttonsContainer {
+      margin-top: 20px;
+    }
+    #buttonsContainer button {
+      padding: 10px;
+      margin-right: 10px;
+      background-color: #3897f0;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div id="notificationContainer">
+  <h2>알림</h2>
+</div>
+<div id="buttonsContainer">
+  <button onclick="sendNotification('user123', 'LIKE', 'http://example.com/post/1')">
+    👍
+  </button>
+  <button onclick="sendNotification('user123', 'COMMENT', 'http://example.com/post/1')">
+    💬
+  </button>
+  <button onclick="sendNotification('user123', 'FOLLOW', 'http://example.com/user/456')">
+    ➕
+  </button>
+</div>
+<script src="https://cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const socket = new SockJS('http://localhost/ws');
+    const stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+      console.log('Connected: ' + frame);
+      stompClient.subscribe('/topic/notifications', function (notification) {
+        addNotificationToDOM(JSON.parse(notification.body));
+      });
+    });
+
+    function addNotificationToDOM(notification) {
+      const container = document.getElementById('notificationContainer');
+      const notificationItem = document.createElement('div');
+      notificationItem.classList.add('notificationItem');
+      notificationItem.onclick = function () {
+        window.location.href = notification.targetUrl;
+      };
+
+      const profileImage = document.createElement('div');
+      profileImage.classList.add('profileImage');
+      switch (notification.notiType) {
+        case 'LIKE':
+          profileImage.innerText = '👍';
+          break;
+        case 'COMMENT':
+          profileImage.innerText = '💬';
+          break;
+        case 'FOLLOW':
+          profileImage.innerText = '➕';
+          break;
+        default:
+          profileImage.innerText = 'ℹ️';
+          break;
+      }
+
+      const contentText = document.createElement('div');
+      contentText.innerText = notification.content;
+
+      notificationItem.appendChild(profileImage);
+      notificationItem.appendChild(contentText);
+      container.appendChild(notificationItem);
+    }
+
+    window.sendNotification = function (userId, notiType, targetUrl) {
+      fetch('http://localhost/notifications/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          userId: userId,
+          notiType: notiType,
+          targetUrl: targetUrl
+        })
+      })
+              .then(response => response.json())
+              .then(data => {
+                console.log('알림 생성됨:', data);
+              })
+              .catch(error => {
+                console.error('알림 생성 오류:', error);
+              });
+    }
+  });
+</script>
+</body>
+</html>
