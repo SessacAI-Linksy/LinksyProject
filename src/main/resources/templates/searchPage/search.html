@@ -127,7 +127,7 @@
                         <div class="grid" th:if="${hashtagFeeds != null}">
                             <div class="grid-item" th:each="feed : ${hashtagFeeds}" th:onclick="'openFeedPopup(' + ${feed.feedId} + ')'">
                                 <div class="image-container">
-                                    <img th:each="image : ${feed.images}" th:src="@{/uploads/} + ${image.imgName}" alt="Feed Image" class="full-image">
+                                    <img th:each="image : ${feed.feedimages}" th:src="@{/uploads/} + ${image.imgName}" alt="Feed Image" class="full-image">
                                     <div class="overlay">
                                         <span th:text="'Likes: ' + ${feed.likeAmount}">Likes</span>
                                         <span th:text="'Comments: ' + ${feed.commentCount}">Comments</span>
@@ -144,7 +144,7 @@
                         <div class="grid" th:if="${feeds != null}">
                             <div class="grid-item" th:each="feed : ${feeds}" th:onclick="'openFeedPopup(' + ${feed.feedId} + ')'">
                                 <div class="image-container">
-                                    <img th:each="image : ${feed.images}" th:src="@{/uploads/} + ${image.imgName}" alt="Feed Image" class="full-image">
+                                    <img th:each="image : ${feed.feedimages}" th:src="@{/uploads/} + ${image.imgName}" alt="Feed Image" class="full-image">
                                     <div class="overlay">
                                         <span th:text="'Likes: ' + ${feed.likeAmount}">Likes</span>
                                         <span th:text="'Comments: ' + ${feed.commentCount}">Comments</span>

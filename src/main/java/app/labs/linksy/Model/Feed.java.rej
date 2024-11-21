@@ -1,0 +1,8 @@
+diff a/src/main/java/app/labs/linksy/Model/Feed.java b/src/main/java/app/labs/linksy/Model/Feed.java	(rejected hunks)
+@@ -1,5 +1,6 @@
+ package app.labs.linksy.Model;
+ 
++<<<<<<< HEAD
+ import java.sql.Timestamp;
+ import java.util.List;
+ 

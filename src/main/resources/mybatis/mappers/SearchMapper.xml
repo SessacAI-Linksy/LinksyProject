@@ -59,7 +59,7 @@
             <result property="userName" column="user_name"/>
             <result property="userImg" column="user_img"/>
         </collection>
-        <collection property="images" javaType="java.util.List" ofType="app.labs.linksy.Model.FeedImage">
+        <collection property="feedimages" javaType="java.util.List" ofType="app.labs.linksy.Model.FeedImage">
             <result property="imgName" column="img_name"/>
         </collection>
     </resultMap>
