@@ -1,10 +1,17 @@
 package app.labs.linksy.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "NOTIFICATION")
+@Data // Getter, Setter, equals, hashCode, toString 메서드 자동 생성
+@NoArgsConstructor // 기본 생성자 자동 생성
+@AllArgsConstructor // 모든 필드를 매개변수로 받는 생성자 자동 생성
 public class Notification {
 
 	@Id
@@ -25,51 +32,7 @@ public class Notification {
 	@Column(name = "CONTENT", nullable = false)
 	private String content;
 
+	// 생성 시간 필드 추가
 	//@Column(name = "CREATED_AT", nullable = false)
-	//private Timestamp createdAt; // 알림 생성 시간 필드 추가
-
-	// 기본 생성자
-	public Notification() {
-	}
-
-	// Getters and Setters
-	public int getNotificationId() {
-		return notificationId;
-	}
-
-	public void setNotificationId(int notificationId) {
-		this.notificationId = notificationId;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getNotiType() {
-		return notiType;
-	}
-
-	public void setNotiType(String notiType) {
-		this.notiType = notiType;
-	}
-
-	public String getTargetUrl() {
-		return targetUrl;
-	}
-
-	public void setTargetUrl(String targetUrl) {
-		this.targetUrl = targetUrl;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
+	//private Timestamp createdAt;
 }
