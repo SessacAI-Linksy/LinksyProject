@@ -17,10 +17,11 @@
                 <img src="/images/logo/blacklogo.png" alt="Linksy Logo" class="logo">
             </div>
             <div class="login-form">
-                <form action="/login" method="post">
+                <form id="loginForm" action="/login" method="post">
                     <input type="text" name="userId" placeholder="아이디" required>
                     <input type="password" name="password" placeholder="비밀번호" required>
                     <button type="submit">로그인</button>
+                    <div id="errorMessage" class="error-message" style="color: red; display: none;"></div>
                 </form>
                 <p>계정이 없으신가요? <a href="/newuser">가입하기</a></p>
             </div>
@@ -32,5 +33,33 @@
             <p>Copyright 2024 Linksy. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const userId = document.querySelector('input[name="userId"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId, password })
+                });
+                
+                if (response.ok) {
+                    window.location.href = '/linksy'; // 로그인 성공시 리다이렉트
+                } else {
+                    const errorDiv = document.getElementById('errorMessage');
+                    errorDiv.textContent = '아이디 또는 비밀번호가 올바르지 않습니다.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('로그인 에러:', error);
+            }
+        });
+    </script>
 </body>
 </html>

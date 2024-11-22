@@ -14,4 +14,9 @@ public class LoginService {
     public void login(Member member) {
         loginRepository.login(member);
     }
+
+    public boolean validateLogin(String userId, String password) {
+        Member member = loginRepository.findByUserId(userId);
+        return member != null && member.getUserPwd().equals(password);
+    }
 }

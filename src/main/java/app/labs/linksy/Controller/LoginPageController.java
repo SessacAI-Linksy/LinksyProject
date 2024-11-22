@@ -5,14 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import app.labs.linksy.Model.Member;
-import app.labs.linksy.Service.LoginService;
 import jakarta.servlet.http.HttpSession;
 
+import app.labs.linksy.Service.LoginService;
+
 @Controller
-@SessionAttributes("userId")
 public class LoginPageController {
 	
 	@Autowired
@@ -27,13 +24,17 @@ public class LoginPageController {
     public String login(@RequestParam("userId") String userId, 
                         @RequestParam("password") String password,
                         HttpSession session) {
-        Member member = Member.builder()
-                .userId(userId)
-                .userPwd(password)
-                .build();
-        loginService.login(member);
-        session.setAttribute("userId", userId);
-        return "redirect:/linksy";
+        try {
+            boolean isValid = loginService.validateLogin(userId, password);
+            if (isValid) {
+                session.setAttribute("userId", userId);
+                return "redirect:/linksy";
+            } else {
+                return "redirect:/login?error=true";
+            }
+        } catch (Exception e) {
+            return "redirect:/login?error=true";
+        }
     }
 
 }

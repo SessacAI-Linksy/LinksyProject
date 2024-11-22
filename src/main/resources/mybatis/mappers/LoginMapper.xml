@@ -21,4 +21,10 @@
         WHERE user_id = #{userId} AND user_pwd = #{userPwd}
     </select>
 
+    <select id="findByUserId" parameterType="String" resultMap="memberResultMap">
+        SELECT user_id, user_name, user_nickname, user_pwd, user_email, user_img, user_introduce
+        FROM Member
+        WHERE user_id = #{userId}
+    </select>
+
 </mapper>
