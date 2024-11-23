@@ -168,6 +168,7 @@ section.center::-webkit-scrollbar-thumb:hover {
     font-family: 'goorm-sans-bold';
     font-weight: 700;
     margin-right: 5px;
+    white-space: nowrap;
 }
 
 .comment-item span {
@@ -270,6 +271,11 @@ section.center::-webkit-scrollbar-thumb:hover {
     align-items: flex-start;
 }
 
+.user-info .my-username {
+    font-family: 'goorm-sans-bold';
+    font-weight: 700;
+}
+
 /* 본인 계정 정보 스타일 */
 
 section.right {
@@ -278,27 +284,7 @@ section.right {
     align-items: flex-start; /* 왼쪽 정렬 */
     margin-top: 30px; /* 상단 여백 */
     padding-left: 0; /* 좌측 여백 */
-}
-
-.friend {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    margin-bottom: 15px;
-    padding: 0; /* 내부 여백 제거 */
-}
-
-
-/* 프로필 이미지 기본 스타일 */
-.friend .profile-img {
-    margin-right: 10px; /* 텍스트와의 간격 */
-}
-
-/* 유저 정보 텍스트 스타일 */
-.friend .user-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* 텍스트 왼쪽 정렬 */
+    margin-left: 10px;
 }
 
 .user-profile {
@@ -309,7 +295,9 @@ section.right {
     padding: 10px 0;
 }
 
-.friends-title {
+/* 팔로잉 */
+
+.following-title {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start; /* 왼쪽 정렬 */
@@ -317,16 +305,47 @@ section.right {
 	margin-top: 15px; /* 아래 간격 */
 }
 
-.friends-title span {
+.following-title span {
 	font-size: 16px;
 	font-weight: bold;
 	margin-bottom: 5px; /* 텍스트와 선 사이 간격 */
 	font-family: 'goorm-sans-bold';
 }
 
-.friends-title hr {
+.following-title hr {
 	width: 100%; /* 선이 섹션 너비를 가득 채우도록 설정 */
 	border: 0;
 	border-top: 1px solid #dbdbdb; /* 선의 스타일 */
 	margin: 0;
 }
+
+.following {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    margin-bottom: 15px;
+    padding: 0; /* 내부 여백 제거 */
+}
+
+.following .follow-item {
+    display: flex;  /* 요소들을 수평으로 배치 */
+    flex: 1 1 100%;
+    align-items: center;  /* 수직 중앙 정렬 */
+    margin-bottom: 20px;  /* 각 항목 간의 간격 */
+}
+
+/* 프로필 이미지 기본 스타일 */
+.following .profile-img {
+    margin-right: 10px; /* 텍스트와의 간격 */
+}
+
+/* 유저 정보 텍스트 스타일 */
+.following .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 500;
+    font-size: 15px;
+}
+

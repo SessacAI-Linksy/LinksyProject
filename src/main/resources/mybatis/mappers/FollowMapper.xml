@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.labs.linksy.DAO.FollowRepository">
+
+	 <!-- 팔로우한 사용자 정보 조회 -->
+    <resultMap id="FollowMap" type="app.labs.linksy.Model.Follow">
+        <id property="followId" column="follow_id"/>
+        <result property="followerId" column="follower_id"/>
+        <result property="folloingId" column="following_id"/>
+        <association property="member" javaType="app.labs.linksy.Model.Member">
+            <id property="userId" column="user_id"/>
+            <result property="userName" column="user_name"/>
+            <result property="userNickname" column="user_nickname"/>
+            <result property="userImg" column="user_img"/>
+        </association>
+    </resultMap>
+
+    <select id="getFollowings" resultMap="FollowMap">
+        SELECT 
+            f.follow_id, f.follower_id, f.following_id,
+            m.user_id, m.user_name, m.user_nickname, m.user_img
+        FROM FOLLOW f
+        JOIN MEMBER m ON f.following_id = m.user_id
+        WHERE f.follower_id = #{followerId}
+    </select>
+</mapper>

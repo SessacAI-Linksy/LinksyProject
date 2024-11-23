@@ -9,7 +9,7 @@ import app.labs.linksy.DAO.FeedRepository;
 import app.labs.linksy.Model.Feed;
 
 @Service
-public class FeedService {
+public class FeedService implements IFeedService {
 	
 	@Autowired
 	private FeedRepository feedRepository;

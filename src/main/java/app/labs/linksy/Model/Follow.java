@@ -6,7 +6,9 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 public class Follow {
-	int followId;
-	String followerId;
-	String folloingId;
+	private int followId;
+	private String followerId;
+	private String folloingId;
+	
+	private Member member;
 }

@@ -65,36 +65,28 @@
 				</div>
 			</div>	
 		</section>
-		<!-- 오른쪽 계정 및 친구-->
+		<!-- 오른쪽 계정 및 팔로잉-->
 		<section class="right">
 			<div class="user-profile">
 				<img th:src="${member.userImg}" alt="프로필 사진" class="my-profile">
 			    <div class="user-info"> 
 			        <span class="my-username" th:text="${member.userNickname}"></span>
-			        <span class="my-user-description" th:text="${member.userIntroduce}"></span>
 			    </div>
 			</div>
 			<!-- 친구 섹션 제목 -->
-			<div class="friends-title">
-				<span>친구</span>
+			<div class="following-title">
+				<span>팔로잉</span>
 				<hr />
 			</div>
-			<div class="friends">
-				<div class="friend">
-					<img src="/images/logo/1.png" alt="친구 사진" class="profile-img">
+			<div class="following">
+				<div th:each="follow : ${followings.subList(0, followings.size() > 7 ? 7 : followings.size())}" class="follow-item">
+					<img th:src="@{/images/profile/{img}(img=${follow.member.userImg})}" alt="팔로우 사진" class="profile-img">
+			
 					<div class="user-info">
-						<span class="username">make_it_work</span>
-						<span class="user-description">Instagram 신규 사용자</span>
+						<span class="username" th:text="${follow.member.userNickname}"></span>
 					</div>
 				</div>
-				<div class="friend">
-					<img src="/images/logo/1.png" alt="친구 사진" class="profile-img">
-					<div class="user-info">
-						<span class="username">dkc_mall</span>
-						<span class="user-description">가방 전문 쇼핑몰</span>
-					</div>
-				</div>
-			</div>	
+			</div>			
 		</section>
 	</div>
 </body>

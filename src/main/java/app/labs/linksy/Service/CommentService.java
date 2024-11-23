@@ -9,7 +9,7 @@ import app.labs.linksy.DAO.CommentRepository;
 import app.labs.linksy.Model.Comment;
 
 @Service
-public class CommentService {
+public class CommentService implements ICommentService {
 	 @Autowired
 	 private CommentRepository commentRepository;
 
