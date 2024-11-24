@@ -60,3 +60,51 @@ function toggleCaption(readMoreElement) {
         readMoreElement.style.display = 'none'; // 15글자 이하일 때 버튼 숨기기
     }
 }
+
+function addComment(buttonElement) {
+    const commentInput = buttonElement.previousElementSibling;
+    const commentContent = commentInput.value.trim();
+    if (!commentContent) {
+        alert("댓글 내용을 입력하세요.");
+        return;
+    }
+
+    const feed = buttonElement.closest('.feeds-container');
+    const feedId = feed.getAttribute('data-feed-id');
+    const commentsList = feed.querySelector('.comments-list');
+    const commentsView = feed.querySelector('.comments-view');
+    const viewCommentsText = commentsView.querySelector('.view-comments');
+
+    // AJAX 요청으로 댓글 추가
+    fetch('/linksy/addComment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `feedId=${feedId}&commentContent=${encodeURIComponent(commentContent)}`
+    })
+    .then(response => response.json())
+    .then(comment => {
+        // 댓글 추가 후 UI 업데이트
+        const commentElement = document.createElement('div');
+        commentElement.className = 'comment-item';
+        commentElement.innerHTML = `<strong>${comment.member.userNickname}</strong>: <span>${comment.commentContent}</span>`;
+        commentsList.appendChild(commentElement);
+
+        // 댓글 입력 필드 초기화
+        commentInput.value = '';
+
+        // 댓글 수 업데이트
+        const newCommentCount = commentsList.children.length;
+        viewCommentsText.innerText = `댓글 ${newCommentCount}개`;
+
+        // 댓글 리스트 확장 상태 유지
+        commentsList.classList.add('show');
+        commentsList.style.maxHeight = `${commentsList.scrollHeight}px`;
+        viewCommentsText.innerText = "댓글 숨기기";
+    })
+    .catch(error => {
+        console.error('댓글 추가에 실패했습니다:', error);
+    });
+}
+

@@ -16,4 +16,11 @@ public class CommentService implements ICommentService {
 	 public List<Comment> getCommentsByFeedId(int feedId) {
 	     return commentRepository.getCommentsByFeedId(feedId);
 	 }
+	 
+	 // 댓글 추가하기
+	 public void addComment(Comment comment) {
+	     commentRepository.insertComment(comment);
+	 }
+
+	
 }

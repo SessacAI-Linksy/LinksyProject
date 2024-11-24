@@ -9,16 +9,13 @@
         <result property="feedId" column="feedId"/>
         <result property="commentContent" column="commentContent"/>
         <result property="parentId" column="parentId"/>
-        <result property="commentTime" column="commentTime"/>
-        
+        <result property="commentTime" column="commentTime"/>       
         <!-- Member 객체를 매핑 -->
 	    <association property="member" javaType="app.labs.linksy.Model.Member">
 	        <result property="userNickname" column="userNickname"/>
 	    </association>
     </resultMap>
     
-    
-
     <!-- 특정 피드의 댓글 가져오기 -->
     <select id="getCommentsByFeedId" resultMap="commentResultMap">
         SELECT 
@@ -34,4 +31,10 @@
         WHERE c.feed_id = #{feedId}
         ORDER BY c.parent_id ASC NULLS FIRST, c.comment_time ASC
     </select>
+    
+    <!-- 댓글 저장 -->
+	<insert id="insertComment" parameterType="app.labs.linksy.Model.Comment">
+	    INSERT INTO COMMENTS (comment_id, user_id, feed_id, comment_content, parent_id, comment_time)
+	    VALUES (SEQ_COMMENT_ID.NEXTVAL, #{userId}, #{feedId}, #{commentContent}, NULL, SYSDATE)
+	</insert>
 </mapper>

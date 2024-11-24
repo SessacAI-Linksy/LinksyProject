@@ -180,7 +180,7 @@ section.center::-webkit-scrollbar-thumb:hover {
 .comments-list {
     margin-top: 10px;
     display: none; /* 기본적으로 숨김 */
-    max-height: 200px; /* 댓글 영역의 최대 높이 */
+    max-height: 200px !important; /* 댓글 영역의 최대 높이 */
     overflow-y: auto; /* 세로 스크롤 활성화 */
     padding: 5px; /* 댓글과 테두리 간격 */
     border-top: 1px solid #dbdbdb;
@@ -332,7 +332,8 @@ section.right {
     display: flex;  /* 요소들을 수평으로 배치 */
     flex: 1 1 100%;
     align-items: center;  /* 수직 중앙 정렬 */
-    margin-bottom: 20px;  /* 각 항목 간의 간격 */
+    margin-bottom: 10px;  /* 각 항목 간의 간격 */
+    margin-top: 10px;
 }
 
 /* 프로필 이미지 기본 스타일 */

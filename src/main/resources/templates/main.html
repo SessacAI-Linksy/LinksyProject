@@ -58,9 +58,9 @@
 						</div>
 						<!-- 댓글 입력 -->
 						<div class="comment-input">
-							<input type="text" placeholder="댓글 달기..." />
-							<button>게시</button>
-						</div>
+							<input type="text" placeholder="댓글 달기..." class="comment-input-field" />
+							<button onclick="addComment(this)">게시</button>
+						</div>						
 					</div>
 				</div>
 			</div>	
@@ -81,7 +81,6 @@
 			<div class="following">
 				<div th:each="follow : ${followings.subList(0, followings.size() > 7 ? 7 : followings.size())}" class="follow-item">
 					<img th:src="@{/images/profile/{img}(img=${follow.member.userImg})}" alt="팔로우 사진" class="profile-img">
-			
 					<div class="user-info">
 						<span class="username" th:text="${follow.member.userNickname}"></span>
 					</div>
