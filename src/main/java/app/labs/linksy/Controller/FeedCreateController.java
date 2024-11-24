@@ -15,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Controller
@@ -61,54 +58,28 @@ public class FeedCreateController {
         return "feed-modify"; // feed-modify.html 파일과 매핑
     }
 
-    // 게시물 생성 처리
-    @PostMapping("/feed/create")
-    public String createFeed(@RequestParam(value = "userId", required = false) String userId,
-                             @RequestParam("feedContent") String feedContent,
-                             @RequestParam("images") List<MultipartFile> imageFiles) {
-        logger.info("Received request to create feed for user: " + (userId != null ? userId : "anonymous"));
-
-        if (userId == null || !userService.existsByUserId(userId)) {
-            logger.warning("User ID does not exist, using default 'anonymous'");
-            userId = "anonymous";
-            userService.createAnonymousUserIfNotExist();
+    @GetMapping("/feed/view/{feedId}")
+    @ResponseBody
+    public Map<String, Object> getFeedByIdWithImages(@PathVariable("feedId") int feedId) {
+        Feed feed = feedCreateService.getFeedById(feedId);
+        if (feed == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Feed not found");
         }
 
-        try {
-            List<String> hashtags = HashtagExtractor.extractHashtags(feedContent);
-            logger.info("Extracted hashtags: " + hashtags);
+        List<String> feedImages = feedCreateService.getFeedImages(feedId);
 
-            List<String> imageNames = new ArrayList<>();
-            for (MultipartFile imageFile : imageFiles) {
-                if (!imageFile.isEmpty()) {
-                    String filePath = uploadDir + File.separator + imageFile.getOriginalFilename();
-                    File destFile = new File(filePath);
-                    imageFile.transferTo(destFile);
-                    imageNames.add(imageFile.getOriginalFilename());
-                    logger.info("Saved image: " + imageFile.getOriginalFilename() + " at " + filePath);
-                }
-            }
+        Map<String, Object> response = new HashMap<>();
+        response.put("feedId", feed.getFeedId());
+        response.put("userId", feed.getUserId());
+        response.put("feedContent", feed.getFeedContent());
+        response.put("feedTime", feed.getFeedTime());
+        response.put("likeAmount", feed.getLikeAmount());
+        response.put("feedImages", feedImages);
 
-            Feed feed = new Feed();
-            feed.setUserId(userId);
-            feed.setFeedContent(feedContent);
-            feed.setLikeAmount(0);
-
-            feedCreateService.createFeed(feed, hashtags, imageNames);
-            logger.info("Feed successfully created for user: " + userId);
-
-            return "redirect:/createFeedSuccess";
-
-        } catch (IOException e) {
-            logger.severe("Error occurred while creating feed: " + e.getMessage());
-            e.printStackTrace();
-            return "redirect:/error";
-        } catch (Exception e) {
-            logger.severe("Unexpected error occurred: " + e.getMessage());
-            e.printStackTrace();
-            return "redirect:/error";
-        }
+        return response;
     }
+
+
 
     // 게시물 수정 처리
     @PutMapping("/feed/edit/{feedId}")
@@ -155,48 +126,71 @@ public class FeedCreateController {
         return "feed-delete-success"; // feed-delete-success.html 파일과 매핑
     }
 
-    // 게시물 수정 또는 삭제 선택 페이지 매핑
-    @GetMapping("/modifyOrDeleteFeedPage/{feedId}")
-    public String modifyOrDeleteFeedPage(@PathVariable("feedId") int feedId, Model model) {
-        model.addAttribute("feedId", feedId);
-        return "feed-modifyordelete"; // feed-modifyordelete.html 파일과 매핑
-    }
-
-    @GetMapping("/feed/{feedId}")
+    @PostMapping("/feed/create")
     @ResponseBody
-    public Map<String, Object> getFeedByIdWithImages(@PathVariable("feedId") int feedId) {
-        // Feed 데이터 가져오기
-        Feed feed = feedCreateService.getFeedById(feedId);
-        if (feed == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Feed not found");
+    public ResponseEntity<Map<String, Object>> createFeed(
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam("feedContent") String feedContent,
+            @RequestParam("images") List<MultipartFile> imageFiles) {
+        logger.info("Received request to create feed for user: " + (userId != null ? userId : "anonymous"));
+
+        if (userId == null || !userService.existsByUserId(userId)) {
+            userId = "anonymous";
+            userService.createAnonymousUserIfNotExist();
         }
 
-        // Feed에 연결된 이미지 목록 가져오기
-        List<String> feedImages = feedCreateService.getFeedImages(feedId);
+        try {
+            List<String> hashtags = HashtagExtractor.extractHashtags(feedContent);
+            List<String> imageNames = new ArrayList<>();
+            for (MultipartFile imageFile : imageFiles) {
+                if (!imageFile.isEmpty()) {
+                    String uniqueFileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
+                    String filePath = uploadDir + File.separator + uniqueFileName;
+                    File destFile = new File(filePath);
+                    if (!destFile.getParentFile().exists()) {
+                        destFile.getParentFile().mkdirs();
+                    }
+                    imageFile.transferTo(destFile);
+                    imageNames.add(uniqueFileName);
+                }
+            }
 
-        // 응답 데이터를 Map으로 구성
-        Map<String, Object> response = new HashMap<>();
-        response.put("feedId", feed.getFeedId());
-        response.put("userId", feed.getUserId());
-        response.put("feedContent", feed.getFeedContent());
-        response.put("feedTime", feed.getFeedTime());
-        response.put("likeAmount", feed.getLikeAmount());
-        response.put("feedImages", feedImages); // 이미지 목록 추가
+            Feed feed = new Feed();
+            feed.setUserId(userId);
+            feed.setFeedContent(feedContent);
+            feed.setLikeAmount(0);
+            feedCreateService.createFeed(feed, hashtags, imageNames);
 
-        return response;
+            // **수정된 JSON 응답**
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("redirectUrl", "/feed/createSuccess"); // 리다이렉트 경로를 프론트엔드에 전달
+            return ResponseEntity.ok(response);
+
+        } catch (IOException e) {
+            logger.severe("Error saving files: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", "File save error"));
+        } catch (Exception e) {
+            logger.severe("Unexpected error: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", "error", "message", "Unexpected error"));
+        }
     }
 
+
     @PostMapping("/feed/edit/{feedId}")
-    public ResponseEntity<String> editFeed(
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> editFeed(
             @PathVariable("feedId") int feedId,
             @RequestBody Map<String, String> payload) {
         String feedContent = payload.get("feedContent");
         boolean success = feedCreateService.updateFeedContent(feedId, feedContent);
         if (success) {
-            return ResponseEntity.ok("Feed updated successfully");
+            return ResponseEntity.ok(Map.of("status", "success", "redirectUrl", "/modifyFeedSuccess"));
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to update feed");
+                    .body(Map.of("status", "error", "message", "Failed to update feed"));
         }
     }
 
@@ -204,6 +198,11 @@ public class FeedCreateController {
     @GetMapping("/modifyFeedSuccess")
     public String modifyFeedSuccessPage() {
         return "feed-modify-success"; // feed-modify-success.html 파일과 매핑
+    }
+
+    @GetMapping("/feed/createSuccess")
+    public String showCreateSuccessPage() {
+        return "feed-create-success"; // 파일 이름만 반환
     }
 
     // 게시물 생성 페이지 매핑

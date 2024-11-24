@@ -141,69 +141,65 @@
 
 <script>
   function createFeed() {
-    const content = document.getElementById('feedContentInput').value;
-    const files = document.getElementById('fileInput').files;
-
-    // FormData 객체 생성
+    // FormData 객체 선언 및 초기화
     const formData = new FormData();
-    formData.append('feedContent', content);
 
-    // 해시태그를 추출하여 FormData에 추가
-    const hashtags = content.match(/#\w+/g) || [];
-    hashtags.forEach((hashtag, index) => {
-      formData.append(`hashtags[${index}]`, hashtag);
-    });
+    const content = document.getElementById("feedContentInput").value;
+    const files = document.getElementById("fileInput").files;
 
-    // 선택된 파일들을 FormData에 추가
-    if (files.length > 0) {
-      Array.from(files).forEach((file) => {
-        formData.append('images', file);
-      });
-    }
+    // Feed Content 추가
+    formData.append("feedContent", content);
 
-    // 서버로 POST 요청 전송
-    fetch('/feed/create', {
-      method: 'POST',
+    // 이미지 파일 추가
+    Array.from(files).forEach(file => formData.append("images", file));
+
+    fetch("/feed/create", {
+      method: "POST",
       body: formData,
     })
             .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error('Network response was not ok');
+              if (!response.ok) {
+                throw new Error("Failed to create feed");
               }
+              return response.json(); // JSON 응답 처리
             })
             .then(data => {
-              // 게시물 생성 성공 시 성공 메시지 표시
-              document.getElementById('formContent').style.display = 'none'; // 폼 숨기기
-              document.getElementById('successMessage').style.display = 'block'; // 성공 메시지 보여주기
+              if (data.status === "success") {
+                window.location.href = data.redirectUrl; // 서버에서 받은 URL로 리다이렉트
+              } else {
+                alert("Error: " + data.message);
+              }
             })
             .catch(error => {
-              console.error('Error:', error);
+              console.error("Error:", error);
+              alert("An unexpected error occurred.");
             });
   }
 
 
+
   // 서버로 POST 요청 전송
-    fetch('/feed/create', {
-      method: 'POST',
-      body: formData,
-    })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error('Network response was not ok');
-              }
-            })
-            .then(data => {
-              // 게시물 생성 성공 시 성공 메시지 표시
-              document.getElementById('formContent').style.display = 'none'; // 폼 숨기기
-              document.getElementById('successMessage').style.display = 'block'; // 성공 메시지 보여주기
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+  fetch("/feed/create", {
+    method: "POST",
+    body: formData,
+  })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to create feed");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.status === "success") {
+              window.location.href = data.redirectUrl; // 서버에서 제공한 경로로 이동
+            } else {
+              alert("Error: " + data.message);
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("An unexpected error occurred.");
+          });
 
 
   function closeFeed() {
