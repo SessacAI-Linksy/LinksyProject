@@ -24,4 +24,5 @@ public class Feed {
 	private FeedImage feedImages;  // FeedImage 객체를 참조
     private List<Comment> comments; // 댓글 리스트 추가
 	private int commentCount;
+	private List<Hashtag> hashtags;
 }
