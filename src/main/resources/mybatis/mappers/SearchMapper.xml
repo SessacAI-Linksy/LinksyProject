@@ -62,6 +62,9 @@
         <collection property="feedImages" ofType="app.labs.linksy.Model.FeedImage">
             <result property="imgName" column="img_name"/>
         </collection>
+        <collection property="hashtags" ofType="app.labs.linksy.Model.Hashtag">
+            <result property="hashtag" column="hashtag"/>
+        </collection>
     </resultMap>
 
     <select id="getFeedById" resultMap="feedWithImagesMap">

@@ -23,47 +23,47 @@ public class profilePageController {
     private SearchService searchService;
 
     // 사용중인 사용자의 프로필 페이지
-    // @GetMapping("/profile")
-    // public String myProfile(HttpSession session, Model model) {
-    //     String userId = (String) session.getAttribute("userId");
-    //     return showProfile(userId, userId, model);
-    // }
+    @GetMapping("/profile")
+    public String myProfile(HttpSession session, Model model) {
+        String userId = (String) session.getAttribute("userId");
+        return showProfile(userId, userId, model);
+    }
 
-    // // 다른 사용자의 프로필 페이지
-    // @GetMapping("/profile/{userId}")
-    // public String userProfile(@PathVariable String userId, 
-    //                         HttpSession session, 
-    //                         Model model) {
-    //     String currentUserId = (String) session.getAttribute("userId");
-    //     return showProfile(currentUserId, userId, model);
-    // }
-
-    // // 프로필 페이지 출력
-    // private String showProfile(String currentUserId, String targetUserId, Model model) {
-    //     Member member = memberService.getMemberByUserId(targetUserId);
-    //     if (member == null) {
-    //         return "error/404";
-    //     }
-        
-    //     List<Feed> feeds = searchService.getFeedsByUserId(targetUserId);
-    //     boolean isOwnProfile = currentUserId != null && currentUserId.equals(targetUserId);
-        
-    //     model.addAttribute("member", member);
-    //     model.addAttribute("feeds", feeds);
-    //     model.addAttribute("isOwnProfile", isOwnProfile);
-    //     return "profilePage/profile";
-    // }
-
+    // 다른 사용자의 프로필 페이지
     @GetMapping("/profile/{userId}")
-    public String userProfile(@PathVariable("userId") String userId, Model model) {
+    public String userProfile(@PathVariable String userId, 
+                            HttpSession session, 
+                            Model model) {
+        String currentUserId = (String) session.getAttribute("userId");
+        return showProfile(currentUserId, userId, model);
+    }
+
+    // 프로필 페이지 출력
+    private String showProfile(String currentUserId, String targetUserId, Model model) {
+        Member member = memberService.getMemberByUserId(targetUserId);
+        if (member == null) {
+            return "error/404";
+        }
         
-        Member member = memberService.getMemberByUserId(userId);
-        List<Feed> feeds = searchService.getFeedsByUserId(userId);
+        List<Feed> feeds = searchService.getFeedsByUserId(targetUserId);
+        boolean isOwnProfile = currentUserId != null && currentUserId.equals(targetUserId);
         
         model.addAttribute("member", member);
         model.addAttribute("feeds", feeds);
+        model.addAttribute("isOwnProfile", isOwnProfile);
         return "profilePage/profile";
     }
+
+    // @GetMapping("/profile/{userId}")
+    // public String userProfile(@PathVariable("userId") String userId, Model model) {
+        
+    //     Member member = memberService.getMemberByUserId(userId);
+    //     List<Feed> feeds = searchService.getFeedsByUserId(userId);
+        
+    //     model.addAttribute("member", member);
+    //     model.addAttribute("feeds", feeds);
+    //     return "profilePage/profile";
+    // }
 
 
     // 피드 팝업 출력

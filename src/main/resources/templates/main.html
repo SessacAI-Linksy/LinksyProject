@@ -21,15 +21,13 @@
 			<div class="feeds-container" th:data-feed-id="${feed.feedId}">
 				<!-- 게시물 상단 - 사용자 정보 -->
 				<div class="feed-header">
-					<img th:src="@{(${feed.feedImages != null and !feed.feedImages.isEmpty()} ? '/path/to/images/' + feed.feedImages[0].imgName : '/path/to/images/default.png')}"
-						 alt="프로필 사진" class="profile-img">
+					<img th:src="@{/upload/} + ${feed.member?.userImg}" alt="프로필 사진" class="profile-img">
 					<span class="username" th:text="${feed.member?.userNickname ?: '익명'}"></span>
 				</div>
 
 				<!-- 게시물 이미지 -->
 				<div class="feed-image">
-					<img th:src="@{(${feed.feedImages != null and !feed.feedImages.isEmpty()} ? '/images/feeds/' + feed.feedImages[0].imgName : '/images/feeds/default.png')}"
-						 alt="게시물 사진">
+					<img th:src="@{/upload/} + ${feed.feedImages.imgName}" alt="게시물 사진">
 				</div>
 
 				<!-- 게시물 하단 - 좋아요 및 댓글 -->

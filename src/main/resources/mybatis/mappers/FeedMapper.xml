@@ -14,6 +14,10 @@
             <result property="userNickname" column="USER_NICKNAME"/>
             <result property="userImg" column="USER_IMG"/>
         </association>
+
+        <collection property="feedImages" ofType="app.labs.linksy.Model.FeedImage">
+            <result property="imgName" column="IMG_NAME"/>
+        </collection>
     </resultMap>
 	
 	<!-- 피드와 관련된 데이터 ���회 -->
