@@ -21,7 +21,9 @@
 			<div class="feeds-container" th:data-feed-id="${feed.feedId}">
 				<!--  게시물 상단 - 사용자 정보 -->
 				<div class="feed-header">
-					<img th:src="@{/images/profile/{img}(img=${feed.member.userImg})}" alt="프로필 사진" class="profile-img">
+					<a th:href="@{'/profile/' + ${feed.member.userId}}">
+						<img th:src="@{/images/profile/{img}(img=${feed.member.userImg})}" alt="프로필 사진" class="profile-img">
+					</a>
 					<span class="username" th:text="${feed.member.userNickname}"></span>
 				</div>
 				<!-- 게시물 이미지 -->
@@ -77,7 +79,9 @@
 		</div>
 		<!-- 프로필 섹션 -->
 		<div class="user-profile">
-			<img th:src="${member.userImg}" alt="프로필 사진" class="my-profile">
+			<a th:href="@{'/profile/' + ${member.userId}}">
+				<img th:src="${member.userImg}" alt="프로필 사진" class="my-profile">
+			</a>
 			<div class="user-info"> 
 				<span class="my-username" th:text="${member.userNickname}"></span>
 			</div>
@@ -89,7 +93,9 @@
 		</div>
 		<div class="following">
 			<div th:each="follow : ${followings.subList(0, followings.size() > 7 ? 7 : followings.size())}" class="follow-item">
-				<img th:src="@{/images/profile/{img}(img=${follow.member.userImg})}" alt="팔로우 사진" class="profile-img">
+				<a th:href="@{'/profile/' + ${follow.member.userId}}">
+					<img th:src="@{/images/profile/{img}(img=${follow.member.userImg})}" alt="팔로우 사진" class="profile-img">
+				</a>
 				<div class="user-info">
 					<span class="username" th:text="${follow.member.userNickname}"></span>
 				</div>
