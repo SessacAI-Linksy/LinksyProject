@@ -45,19 +45,15 @@
 </head>
 <body>
 <div id="successContainer">
-  <button id="closeButton" onclick="closePage()">&times;</button> <!-- X 버튼 추가 -->
+  <button id="closeButton" onclick="redirectToLinksy()">&times;</button>
   <div class="checkIcon">&#x2714;</div>
   <h1>게시물이 수정되었습니다.</h1>
 </div>
 
 <script>
-  function closePage() {
-    // 창 닫기: 팝업으로 열려있다면 창을 닫고, 그렇지 않으면 현재 페이지 숨김
-    if (window.opener) {
-      window.close(); // 팝업으로 열린 경우 창 닫기
-    } else {
-      document.getElementById('successContainer').style.display = 'none'; // 페이지 자체가 닫을 수 없는 경우 숨기기
-    }
+  // '/linksy'로 이동하는 함수
+  function redirectToLinksy() {
+    window.location.href = '/linksy'; // 메인 페이지로 이동
   }
 </script>
 </body>

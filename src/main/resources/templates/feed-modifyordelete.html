@@ -92,10 +92,13 @@
 </div>
 
 <script>
+  // 페이지 로드 시 현재 URL에서 feed ID 추출
   document.addEventListener("DOMContentLoaded", function() {
     const feedId = window.location.pathname.split("/").pop();
     document.getElementById('feedId').value = feedId;
   });
+
+  // 게시물 수정 함수
   function editPost() {
     const feedId = document.getElementById('feedId').value;
     if (feedId) {
@@ -105,6 +108,7 @@
     }
   }
 
+  // 게시물 삭제 함수
   function deletePost() {
     const feedId = document.getElementById('feedId').value;
     if (feedId) {
@@ -128,8 +132,9 @@
     }
   }
 
+  // 팝업 닫기 함수 - 메인 페이지로 이동
   function closePopup() {
-    document.getElementById('popupContainer').style.display = 'none';
+    window.location.href = '/linksy'; // 메인 페이지 URL로 이동
   }
 </script>
 

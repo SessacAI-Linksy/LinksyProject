@@ -131,7 +131,7 @@
   }
 
   function closeFeed() {
-    document.getElementById("feedFormContainer").style.display = "none";
+    window.location.href = '/linksy'; // 메인 페이지로 이동
   }
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -205,7 +205,7 @@
 
   // 닫기 버튼 눌렀을 때 실행될 closeFeed 함수 정의
   function closeFeed() {
-    document.getElementById('feedFormContainer').style.display = 'none';
+    window.location.href = '/linksy'; // 메인 페이지 URL로 이동
   }
 
 </script>
