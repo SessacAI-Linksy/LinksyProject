@@ -30,15 +30,17 @@ public class FeedCreateService {
      * Create a new feed, including saving hashtags and images.
      */
     @Transactional
-    public void createFeed(Feed feed, List<String> hashtags, List<String> imageNames) {
+    public void createFeed(Feed feed, List<String> imageNames) {
         try {
             // 피드 삽입
             feedCreateMapper.insertFeed(feed);
             int feedId = feed.getFeedId(); // 자동 증가된 피드 ID 가져오기
             System.out.println("Feed inserted with ID: " + feedId);
 
-            // 해시태그 처리 (정제 및 저장)
-            saveHashtags(feedId, hashtags);
+            // 해시태그 추출 및 저장
+            String feedContent = feed.getFeedContent(); // Feed 객체에서 내용 가져오기
+            Set<String> hashtags = extractHashtags(feedContent);
+            saveHashtags(feedId, new ArrayList<>(hashtags));
 
             // 이미지 삽입
             for (String imgName : imageNames) {
@@ -51,23 +53,27 @@ public class FeedCreateService {
         }
     }
 
+
+
+
     /**
      * 해시태그를 정제하는 메서드.
      */
     private String refineHashtag(String hashtag) {
+        if (hashtag == null || hashtag.trim().isEmpty()) {
+            return null;
+        }
         // '#' 제거 및 소문자로 변환
         String refined = hashtag.replaceFirst("^#", "").trim().toLowerCase();
 
         // 길이 제한 (2-20자)
-        if (refined.length() < 2) {
-            return null;
-        }
-        if (refined.length() > 20) {
-            refined = refined.substring(0, 20);
+        if (refined.length() < 2 || refined.length() > 20) {
+            return null; // 조건에 맞지 않으면 null 반환
         }
 
         return refined;
     }
+
 
 
     /**
@@ -119,6 +125,10 @@ public class FeedCreateService {
         for (String tag : hashtags) {
             // 해시태그 정제
             String refinedTag = refineHashtag(tag);
+            if (refinedTag == null) {
+                System.out.println("Invalid or empty hashtag skipped: " + tag);
+                continue; // 잘못된 해시태그는 건너뜀
+            }
 
             // 해시태그 ID 찾기 또는 생성
             Integer tagId = hashtagMapper.findHashtagIdByName(refinedTag);
@@ -133,6 +143,7 @@ public class FeedCreateService {
         }
     }
 
+
     public boolean updateFeedContent(int feedId, String feedContent) {
         int updatedRows = feedCreateMapper.updateFeedContent(feedId, feedContent);
         return updatedRows > 0; // 업데이트된 행이 1개 이상인지 확인
@@ -140,7 +151,11 @@ public class FeedCreateService {
 
     public Set<String> extractHashtags(String content) {
         Set<String> hashtags = new HashSet<>();
-        Pattern pattern = Pattern.compile("#([a-zA-Z가-힣0-9_]+)"); // 수정된 정규식: 해시태그는 영문, 숫자, 한글, 밑줄만 허용
+        if (content == null || content.isEmpty()) {
+            return hashtags;
+        }
+
+        Pattern pattern = Pattern.compile("#([a-zA-Z가-힣0-9_]{2,20})"); // 길이 제한 추가
         Matcher matcher = pattern.matcher(content);
 
         while (matcher.find()) {
@@ -149,6 +164,7 @@ public class FeedCreateService {
 
         return hashtags;
     }
+
 
     public List<String> getFeedImages(int feedId) {
         return feedCreateMapper.getImagesByFeedId(feedId);

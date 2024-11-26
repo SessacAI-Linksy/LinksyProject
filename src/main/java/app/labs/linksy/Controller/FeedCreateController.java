@@ -236,7 +236,9 @@ public class FeedCreateController {
             feed.setUserId(userId);
             feed.setFeedContent(feedContent);
             feed.setLikeAmount(0);
-            feedCreateService.createFeed(feed, new ArrayList<>(), imageNames);
+            feedCreateService.createFeed(feed, imageNames);
+
+
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");
