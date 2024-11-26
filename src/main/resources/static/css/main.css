@@ -304,6 +304,19 @@ section.right {
     z-index: 1000; /* 메인 컨텐츠 위에 표시되도록 */
 }
 
+/* 로그아웃 */
+
+.logout {
+    text-align: right;
+    border: none;
+    color: inherit;
+}
+
+.logout a {
+    cursor: pointer;
+    text-decoration-line: none;
+}
+
 .user-profile {
     display: flex;
     align-items: center;
@@ -352,7 +365,7 @@ section.right {
     margin-top: 10px;
 }
 
-/* 프로필 ���미지 기본 스타일 */
+/* 프로필 이미지 기본 스타일 */
 .following .profile-img {
     margin-right: 10px; /* 텍스트와의 간격 */
 }

@@ -71,6 +71,10 @@
 	</section>
 	<!-- 오른쪽 계정 및 친구 -->
 	<section class="right">
+		<!-- 로그아웃 버튼 -->
+		<div class="logout">
+			<a th:href="@{/logout}" class="logout-button">로그아웃</a>
+		</div>
 		<div class="user-profile">
 			<img th:src="${member.userImg}" alt="프로필 사진" class="my-profile">
 			<div class="user-info"> 
