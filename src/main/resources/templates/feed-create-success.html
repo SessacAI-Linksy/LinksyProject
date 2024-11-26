@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -46,10 +45,17 @@
 </head>
 <body>
 <div id="successContainer">
-  <button id="closeButton" th:onclick="@{/linksy/feed}">&times;</button> <!-- X 버튼 추가 -->
+  <!-- X 버튼: 클릭 시 /linksy 경로로 이동 -->
+  <button id="closeButton" onclick="redirectToLinksy()">&times;</button>
   <div class="checkIcon">&#x2714;</div>
   <h1>게시물이 공유되었습니다.</h1>
 </div>
 
+<script>
+  // '/linksy'로 이동하는 함수
+  function redirectToLinksy() {
+    window.location.href = '/linksy'; // 메인 페이지로 이동
+  }
+</script>
 </body>
 </html>
