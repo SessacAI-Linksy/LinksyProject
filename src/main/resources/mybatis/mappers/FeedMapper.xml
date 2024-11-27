@@ -12,6 +12,7 @@
 	    
 	    <!-- Member 객체 매핑 -->
 	    <association property="member" javaType="app.labs.linksy.Model.Member">
+            <result property="userId" column="userId"/>
 	        <result property="userNickname" column="userNickname"/>
 	        <result property="userImg" column="userImg"/>
 	    </association>

@@ -16,8 +16,24 @@
 
     <!-- 회원 등록 -->
     <insert id="registerMember" parameterType="app.labs.linksy.Model.Member">
-        INSERT INTO Member (user_id, user_name, user_nickname, user_pwd, user_email, user_img, user_introduce)
-        VALUES (#{userId}, #{userName}, #{userNickname}, #{userPwd}, #{userEmail}, #{userImg, jdbcType=VARCHAR}, #{userIntroduce, jdbcType=VARCHAR})
+        INSERT INTO Member (
+            user_id, user_name, user_nickname, user_pwd, user_email, user_img, user_introduce
+        ) VALUES (
+            #{userId},
+            #{userName},
+            #{userNickname},
+            #{userPwd},
+            #{userEmail},
+            <choose>
+                <when test="userImg != null and userImg != ''">
+                    #{userImg, jdbcType=VARCHAR}
+                </when>
+                <otherwise>
+                    'default-profile.png'
+                </otherwise>
+            </choose>,
+            #{userIntroduce, jdbcType=VARCHAR}
+        )
     </insert>
 
     <!-- ID 중복 체크 -->

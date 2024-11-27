@@ -13,7 +13,9 @@
         <!-- Member 객체를 매핑 -->
 	    <association property="member" javaType="app.labs.linksy.Model.Member">
 	        <result property="userNickname" column="userNickname"/>
-	    </association>
+            <result property="userImg" column="userImg"/>
+
+        </association>
     </resultMap>
 
     <!-- 특정 피드의 댓글 가져오기 -->
@@ -25,7 +27,8 @@
             c.comment_content AS commentContent,
             c.parent_id AS parentId,
             c.comment_time AS commentTime,
-            m.user_nickname AS userNickname
+            m.user_nickname AS userNickname,
+            m.user_img AS userImg
         FROM COMMENTS c
         JOIN MEMBER m ON c.user_id = m.user_id
         WHERE c.feed_id = #{feedId}

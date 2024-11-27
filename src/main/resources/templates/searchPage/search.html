@@ -4,284 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linksy Combined</title>
-    
+
     <!-- 부트스트랩 아이콘 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- css 가저오는 곳 -->
-	<!-- 메뉴바랑 css 합쳐서 하나만 가져옴 -->
+    <!-- 메뉴바랑 css 합쳐서 하나만 가져옴 -->
     <link rel="stylesheet" href="/css/search.css">
 </head>
 <body>
-    <div class="page">
-        <!-- 메뉴바 -->
-        <div class="menu_bar">
-            <div class="menubar_header"></div>
-            <div class="logo_img" onclick="location.href='/linksy'">
-                <img alt="Logo" src="/images/logo/blacklogo.png">
-            </div>
-            <div class="margin_logo2menu"></div>
-            <div class="menu_content_container_list">
-                <div class="menu_content_container">
-                    <a href="/linksy"> 
-                        <div class="menu_icon_img">
-                            <i class="bi bi-house-door"></i>
-                        </div>
-                        <div class="menu_content">홈</div>
-                    </a>
-                </div>
-                <div class="menu_content_container">
-                    <a href="/search"> 
-                        <div class="menu_icon_img">
-                            <i class="bi bi-search"></i>
-                        </div>
-                        <div class="menu_content">검색</div>
-                    </a>
-                </div>
-                <div class="menu_content_container">
-                    <a href="/create"> 
-                        <div class="menu_icon_img">
-                            <i class="bi bi-pencil"></i>
-                        </div>
-                        <div class="menu_content">작성</div>
-                    </a>
-                </div>
-                <div class="menu_content_container">
-                    <a href="/profile"> 
-                        <div class="menu_icon_img">
-                            <i class="bi bi-person"></i>
-                        </div>
-                        <div class="menu_content">프로필</div>
-                    </a>
-                </div>
-                <div class="menu_content_container">
-                    <a href="/notification.html"> 
-                        <div class="menu_icon_img">
-                            <i class="bi bi-bell"></i>
-                        </div>
-                        <div class="menu_content">알림</div>
-                    </a>
-                </div>
-                <div class="menu_content_container">
-                    <a href="/settings/profile">
-                        <div class="menu_icon_img">
-                            <i class="bi bi-gear"></i>
-                        </div>
-                        <div class="menu_content">설정</div>
-                    </a>
-                </div>
-                <div class="menu_content_container">
-                    <a href="/profile/qna"> 
-                        <div class="menu_icon_img">
-                            <i class="bi bi-question-circle"></i>
-                        </div>
-                        <div class="menu_content">Q & A</div>
-                    </a>
-                </div>
-            </div>
-            <div class="menu_bottom_margin"></div>
+<div class="page">
+    <!-- 메뉴바 -->
+    <div class="menu_bar">
+        <div class="menubar_header"></div>
+        <div class="logo_img" onclick="location.href='/linksy'">
+            <img alt="Logo" src="/images/logo/blacklogo.png">
         </div>
-
-        <!-- 메인 컨텐츠 -->
-        <div class="search_page">
-            <div class="header">
-                <div class="search-container">
-                    <form id="searchForm" class="search-form">
-                        <input type="text" class="search-bar" name="keyword" placeholder="Search..." th:value="${keyword}">
-                        <button class="search-button" type="button" onclick="submitSearch()">Search</button>
-                    </form>
-                </div>
+        <div class="margin_logo2menu"></div>
+        <div class="menu_content_container_list">
+            <div class="menu_content_container">
+                <a href="/linksy">
+                    <div class="menu_icon_img">
+                        <i class="bi bi-house-door"></i>
+                    </div>
+                    <div class="menu_content">홈</div>
+                </a>
             </div>
-            <div class="content">
-                <!-- 선택 탭 -->
-                <div class="tabs">
-                    <button class="tab-button" th:classappend="${activeTab == 'account'} ? 'active'" 
-                            onclick="changeTab('/search/accounts')">Account</button>
-                    <button class="tab-button" th:classappend="${activeTab == 'hashtag'} ? 'active'" 
-                            onclick="changeTab('/search/hashtag')">Hashtag</button>
-                    <button class="tab-button" th:classappend="${activeTab == 'feed'} ? 'active'" 
-                            onclick="changeTab('/search/feed')">Feed</button>
-                    <button class="tab-button hidden" id="secretTab" th:classappend="${activeTab == 'hiddenGame'} ? 'active'" 
-                            onclick="changeTab('/search/hiddenGame')">Secret</button>
+            <div class="menu_content_container">
+                <a href="/search">
+                    <div class="menu_icon_img">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <div class="menu_content">검색</div>
+                </a>
+            </div>
+            <div class="menu_content_container">
+                <a href="/create">
+                    <div class="menu_icon_img">
+                        <i class="bi bi-pencil"></i>
+                    </div>
+                    <div class="menu_content">작성</div>
+                </a>
+            </div>
+            <div class="menu_content_container">
+                <a href="/profile">
+                    <div class="menu_icon_img">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <div class="menu_content">프로필</div>
+                </a>
+            </div>
+            <div class="menu_content_container">
+                <a href="/settings/profile">
+                    <div class="menu_icon_img">
+                        <i class="bi bi-gear"></i>
+                    </div>
+                    <div class="menu_content">설정</div>
+                </a>
+            </div>
+        </div>
+        <div class="menu_bottom_margin"></div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="search_page">
+        <div class="header">
+            <div class="search-container">
+                <form id="searchForm" class="search-form">
+                    <input type="text" class="search-bar" name="keyword" placeholder="Search..." th:value="${keyword}">
+                    <button class="search-button" type="button" onclick="submitSearch()">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="content">
+            <!-- 선택 탭 -->
+            <div class="tabs">
+                <button class="tab-button" th:classappend="${activeTab == 'account'} ? 'active'"
+                        onclick="changeTab('/search/accounts')">Account</button>
+                <button class="tab-button" th:classappend="${activeTab == 'feed'} ? 'active'"
+                        onclick="changeTab('/search/feed')">Feed</button>
+                <button class="tab-button hidden" id="secretTab" th:classappend="${activeTab == 'hiddenGame'} ? 'active'"
+                        onclick="changeTab('/search/hiddenGame')">Secret</button>
+            </div>
+
+            <!-- 탭 내용물 -->
+            <div class="tab-content">
+                <!-- Account 탭 -->
+                <div id="account" class="tab-panel" th:classappend="${activeTab == 'account'} ? 'active'">
+                    <h2>Account Content</h2>
+                    <div th:if="${members != null}">
+                        <div th:each="member : ${members}" class="member-card"
+                             th:data-user-id="${member.userId}"
+                             style="cursor: pointer;">
+                            <img th:src="@{/images/profile/{img}(img=${member.userImg})}" alt="Profile" class="profile-img">
+                            <div class="member-info">
+                                <span class="member-name" th:text="${member.userNickname}"></span>
+                                <p class="member-intro" th:text="${member.userIntroduce}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <p th:if="${members != null and members.empty}">검색된 계정이 없습니다.</p>
+                </div>
+                <!-- Feed 탭 -->
+                <div id="feed" class="tab-panel" th:classappend="${activeTab == 'feed'} ? 'active'">
+                    <h2>Feed Content</h2>
+                    <div class="grid" th:if="${feeds != null}">
+                        <div class="grid-item" th:each="feed : ${feeds}" th:onclick="'openFeedPopup(' + ${feed.feedId} + ')'">
+                            <div class="image-container">
+                                <img th:each="image : ${feed.feedImages}" th:src="@{/images/feeds/{img}(img=${image.imgName})}" alt="Feed Image" class="full-image">
+                                <div class="overlay">
+                                    <span th:text="'Likes: ' + ${feed.likeAmount}">Likes</span>
+                                    <span th:text="'Comments: ' + ${feed.commentCount}">Comments</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p th:if="${feeds != null and feeds.empty}">검색된 게시글이 없습니다.</p>
                 </div>
 
-                <!-- 탭 내용물 -->
-                <div class="tab-content">
-                    <!-- Account 탭 -->
-                    <div id="account" class="tab-panel" th:classappend="${activeTab == 'account'} ? 'active'">
-                        <h2>Account Content</h2>
-                        <div th:if="${members != null}">
-                            <div th:each="member : ${members}" class="member-card" 
-                                 th:data-user-id="${member.userId}"
-                                 style="cursor: pointer;">
-                                <img th:src="${member.userImg}" alt="Profile" class="profile-img">
-                                <div class="member-info">
-                                    <span class="member-name" th:text="${member.userName}"></span>
-                                    <p class="member-intro" th:text="${member.userIntroduce}"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <p th:if="${members != null and members.empty}">검색된 계정이 없습니다.</p>
-                    </div>
-
-                    <!-- Hashtag 탭 -->
-                    <div id="hashtag" class="tab-panel" th:classappend="${activeTab == 'hashtag'} ? 'active'">
-                        <h2>Hashtag Content</h2>
-                        <div class="grid" th:if="${hashtagFeeds != null}">
-                            <div class="grid-item" th:each="feed : ${hashtagFeeds}" th:onclick="'openFeedPopup(' + ${feed.feedId} + ')'">
-                                <div class="image-container">
-                                    <img th:each="image : ${feed.feedImages}" th:src="@{/uploads/} + ${image.imgName}" alt="Feed Image" class="full-image">
-                                    <div class="overlay">
-                                        <span th:text="'Likes: ' + ${feed.likeAmount}">Likes</span>
-                                        <span th:text="'Comments: ' + ${feed.commentCount}">Comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p th:if="${hashtagFeeds != null and hashtagFeeds.empty}">검색된 해시태그가 없습니다.</p>
-                    </div>
-
-                    <!-- Feed 탭 -->
-                    <div id="feed" class="tab-panel" th:classappend="${activeTab == 'feed'} ? 'active'">
-                        <h2>Feed Content</h2>
-                        <div class="grid" th:if="${feeds != null}">
-                            <div class="grid-item" th:each="feed : ${feeds}" th:onclick="'openFeedPopup(' + ${feed.feedId} + ')'">
-                                <div class="image-container">
-                                    <img th:each="image : ${feed.feedImages}" th:src="@{/uploads/} + ${image.imgName}" alt="Feed Image" class="full-image">
-                                    <div class="overlay">
-                                        <span th:text="'Likes: ' + ${feed.likeAmount}">Likes</span>
-                                        <span th:text="'Comments: ' + ${feed.commentCount}">Comments</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <p th:if="${feeds != null and feeds.empty}">검색된 게시글이 없습니다.</p>
-                    </div>
-
-                    <!-- Secret 탭 -->
-                    <div id="secret" class="tab-panel hidden" th:classappend="${activeTab == 'hiddenGame'} ? 'active'">
-                        <h2>Secret Content</h2>
-                        <iframe src="/search/hiddenGame" style="width: 100%; height: 700px; border: none;"></iframe>
-                    </div>
+                <!-- Secret 탭 -->
+                <div id="secret" class="tab-panel hidden" th:classappend="${activeTab == 'hiddenGame'} ? 'active'">
+                    <h2>Secret Content</h2>
+                    <iframe src="/search/hiddenGame" style="width: 100%; height: 700px; border: none;"></iframe>
                 </div>
             </div>
         </div>
     </div>
-
-    <div id="feedModal" class="modal">
-        <div class="modal-content">
-            <div id="modalBody">
-                <!-- 여기에 피드 내용을 동적으로 추가 -->
-            </div>
+</div>
+<div id="feedModal" class="modal">
+    <div class="modal-content">
+        <div id="modalBody">
+            <!-- 여기에 피드 내용을 동적으로 추가 -->
         </div>
     </div>
-
+</div>
 </body>
 <script>
-function submitSearch() {
-    const keyword = document.querySelector('.search-bar').value;
-    const activeTab = document.querySelector('.tab-button.active');
-    let url = '/search/accounts'; // 기본값
+    function submitSearch() {
+        const keyword = document.querySelector('.search-bar').value;
+        const activeTab = document.querySelector('.tab-button.active');
+        let url = '/search/accounts'; // 기본값
 
-    if (activeTab) {
-        if (activeTab.textContent === 'Hashtag') {
-            url = '/search/hashtag';
-        } else if (activeTab.textContent === 'Feed') {
-            url = '/search/feed';
+        if (activeTab) {
+            if (activeTab.textContent === 'Feed') {
+                url = '/search/feed';
+            }
+        }
+
+        window.location.href = `${url}?keyword=${encodeURIComponent(keyword)}`;
+    }
+
+    function changeTab(url) {
+        const keyword = document.querySelector('.search-bar').value;
+        if (url === '/search/hiddenGame') {
+            window.location.href = url;
+            return;
+        }
+
+        if (keyword) {
+            window.location.href = `${url}?keyword=${encodeURIComponent(keyword)}`;
+        } else {
+            window.location.href = url;
         }
     }
 
-    window.location.href = `${url}?keyword=${encodeURIComponent(keyword)}`;
-}
-
-function changeTab(url) {
-    const keyword = document.querySelector('.search-bar').value;
-    if (url === '/search/hiddenGame') {
-        window.location.href = url;
-        return;
-    }
-    
-    if (keyword) {
-        window.location.href = `${url}?keyword=${encodeURIComponent(keyword)}`;
-    } else {
-        window.location.href = url;
-    }
-}
-
-// 엔터키 처리
-document.querySelector('.search-bar').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        submitSearch();
-    }
-});
-
-function openFeedPopup(feedId) {
-    const modal = document.getElementById('feedModal');
-    const modalBody = document.getElementById('modalBody');
-
-    // AJAX 요청을 통해 HTML 콘텐츠를 가져옴
-    fetch(`/search/feedPopup/${feedId}`)
-        .then(response => response.text())
-        .then(html => {
-            modalBody.innerHTML = html;
-            modal.style.display = 'block';
-        })
-        .catch(error => {
-            console.error('Error loading feed popup:', error);
-            modalBody.innerHTML = '<p>피드를 불러오는 데 문제가 발생했습니다.</p>';
-            modal.style.display = 'block';
-        });
-}
-
-// 모달 외부 클릭 시 닫기
-window.onclick = function(event) {
-    const modal = document.getElementById('feedModal');
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-}
-</script>
-
-<script>
-// 코나미 코드 감지
-const konamiCode = [
-  "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-  "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
-  "b", "a"
-];
-
-let konamiIndex = 0;
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === konamiCode[konamiIndex]) {
-    konamiIndex++;
-    if (konamiIndex === konamiCode.length) {
-      activateSecretTab();
-      konamiIndex = 0;
-    }
-  } else {
-    konamiIndex = 0;
-  }
-});
-
-function activateSecretTab() {
-    const secretTab = document.getElementById('secretTab');
-    const secretPanel = document.getElementById('secret');
-    
-    secretTab.classList.remove('hidden');
-    secretPanel.classList.remove('hidden');
-    alert("🎉 축하합니다! 숨겨진 탭이 활성화되었습니다!");
-}
-
-</script>
-
-<script>
-document.querySelectorAll('.member-card').forEach(card => {
-    card.addEventListener('click', function() {
-        const userId = this.getAttribute('data-user-id');
-        location.href = '/profile/' + userId;
+    // 엔터키 처리
+    document.querySelector('.search-bar').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submitSearch();
+        }
     });
-});
+
+    function openFeedPopup(feedId) {
+        const modal = document.getElementById('feedModal');
+        const modalBody = document.getElementById('modalBody');
+
+        // AJAX 요청을 통해 HTML 콘텐츠를 가져옴
+        fetch(`/search/feedPopup/${feedId}`)
+            .then(response => response.text())
+            .then(html => {
+                modalBody.innerHTML = html;
+                modal.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error loading feed popup:', error);
+                modalBody.innerHTML = '<p>피드를 불러오는 데 문제가 발생했습니다.</p>';
+                modal.style.display = 'block';
+            });
+    }
+
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function(event) {
+        const modal = document.getElementById('feedModal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+
+<script>
+    // 코나미 코드 감지
+    const konamiCode = [
+        "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+        "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+        "b", "a"
+    ];
+
+    let konamiIndex = 0;
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                activateSecretTab();
+                konamiIndex = 0;
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+
+    function activateSecretTab() {
+        const secretTab = document.getElementById('secretTab');
+        const secretPanel = document.getElementById('secret');
+
+        secretTab.classList.remove('hidden');
+        secretPanel.classList.remove('hidden');
+        alert("🎉 축하합니다! 숨겨진 탭이 활성화되었습니다!");
+    }
+
+</script>
+
+<script>
+    document.querySelectorAll('.member-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const userId = this.getAttribute('data-user-id');
+            location.href = '/profile/' + userId;
+        });
+    });
 </script>
 
 </html>

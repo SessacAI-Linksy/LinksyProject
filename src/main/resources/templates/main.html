@@ -13,7 +13,7 @@
 <div class="main">
 	<!-- 메뉴바 -->
 	<div th:replace="~{menu_bar :: menu_bar}"></div>
-	
+
 	<!-- 중앙 컨텐츠 -->
 	<section class="center">
 		<div th:each="feed : ${feeds}">
@@ -21,7 +21,9 @@
 			<div class="feeds-container" th:data-feed-id="${feed.feedId}">
 				<!--  게시물 상단 - 사용자 정보 -->
 				<div class="feed-header">
-					<img th:src="@{/images/profile/{img}(img=${feed.member.userImg})}" alt="프로필 사진" class="profile-img">
+					<a th:href="@{'/profile/' + ${feed.member.userId}}">
+						<img th:src="@{/images/profile/{img}(img=${feed.member.userImg})}" alt="프로필 사진" class="profile-img">
+					</a>
 					<span class="username" th:text="${feed.member.userNickname}"></span>
 				</div>
 				<!-- 게시물 이미지 -->
@@ -32,32 +34,32 @@
 				<div class="feed-footer">
 					<div class="feed-actions-likes">
 						<div class="feed-actions">
-							<i class="bi" th:class="${feed.isLikedByUser ? 'bi-heart-fill' : 'bi-heart'}" 
-							onclick="toggleLike(this)" 
-							th:data-feed-id="${feed.feedId}" 
-							th:data-user-id="${member.userId}"></i>
+							<i class="bi" th:class="${feed.isLikedByUser ? 'bi-heart-fill' : 'bi-heart'}"
+							   onclick="toggleLike(this)"
+							   th:data-feed-id="${feed.feedId}"
+							   th:data-user-id="${member.userId}"></i>
 						</div>
-						<div class="likes" th:text="'좋아요 ' + ${feed.likeAmount} + '개'" 
-							 onclick="showLikesPopup(this)" 
+						<div class="likes" th:text="'좋아요 ' + ${feed.likeAmount} + '개'"
+							 onclick="showLikesPopup(this)"
 							 th:data-feed-id="${feed.feedId}">
 						</div>
 					</div>
 					<div class="feed-caption">
 						<span class="username" th:text="${feed.member.userNickname}"></span>
-						<span class="caption-text" th:attr="data-full-text=${feed.feedContent}" 
-								th:text="${#strings.abbreviate(feed.feedContent, 15)}"></span>
-						<span class="read-more"  th:if="${feed.feedContent.length() > 15}"  
-								onclick="toggleCaption(this)">더보기</span>
+						<span class="caption-text" th:attr="data-full-text=${feed.feedContent}"
+							  th:text="${#strings.abbreviate(feed.feedContent, 15)}"></span>
+						<span class="read-more"  th:if="${feed.feedContent.length() > 15}"
+							  onclick="toggleCaption(this)">더보기</span>
 					</div>
 					<!-- 댓글 n개 보기 -->
 					<div class="comments-view">
-						<span class="view-comments" onclick="showComments(this)"
-							th:text="'댓글 ' + ${feed.comments.size()} + '개'">
-						</span>
+							<span class="view-comments" onclick="showComments(this)"
+								  th:text="'댓글 ' + ${feed.comments.size()} + '개'">
+							</span>
 						<div class="comments-list">
 							<!-- 댓글 리스트 출력-->
 							<div class="comment-item" th:each="comment : ${feed.comments}">
-								<strong th:text="${comment.member.userNickname}"></strong>: 
+								<strong th:text="${comment.member.userNickname}"></strong>:
 								<span th:text="${comment.commentContent}"></span>
 							</div>
 						</div>
@@ -66,10 +68,10 @@
 					<div class="comment-input">
 						<input type="text" placeholder="댓글 달기..." class="comment-input-field" />
 						<button onclick="addComment(this)">게시</button>
-					</div>						
+					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</section>
 	<!-- 오른쪽 계정 및 친구 -->
 	<section class="right">
@@ -79,8 +81,10 @@
 		</div>
 		<!-- 프로필 섹션 -->
 		<div class="user-profile">
-			<img th:src="${member.userImg}" alt="프로필 사진" class="my-profile">
-			<div class="user-info"> 
+			<a th:href="@{/profile}">
+				<img th:src="@{'/images/profile/' + ${member.userImg}}" alt="프로필 사진" class="my-profile">
+			</a>
+			<div class="user-info">
 				<span class="my-username" th:text="${member.userNickname}"></span>
 			</div>
 		</div>
@@ -91,12 +95,14 @@
 		</div>
 		<div class="following">
 			<div th:each="follow : ${followings.subList(0, followings.size() > 7 ? 7 : followings.size())}" class="follow-item">
-				<img th:src="@{/images/profile/{img}(img=${follow.member.userImg})}" alt="팔로우 사진" class="profile-img">
+				<a th:href="@{'/profile/' + ${follow.member.userId}}">
+					<img th:src="@{/images/profile/{img}(img=${follow.member.userImg})}" alt="팔로우 사진" class="profile-img">
+				</a>
 				<div class="user-info">
 					<span class="username" th:text="${follow.member.userNickname}"></span>
 				</div>
 			</div>
-		</div>			
+		</div>
 	</section>
 </div>
 

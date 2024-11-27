@@ -16,7 +16,7 @@
     <select id="searchMembers" resultMap="memberResultMap">
         SELECT user_id, user_name, user_nickname, user_email, user_img, user_introduce
         FROM Member
-        WHERE user_name LIKE CONCAT(CONCAT('%', #{keyword}), '%')
+        WHERE user_id LIKE CONCAT(CONCAT('%', #{keyword}), '%')
         OR user_nickname LIKE CONCAT(CONCAT('%', #{keyword}), '%')
     </select>
 

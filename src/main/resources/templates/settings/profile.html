@@ -29,7 +29,7 @@
                 <div class="profile-section">
                     <!-- 프로필 사진 -->
                     <div class="profile-image-wrapper">
-                        <img th:src="${member.userImg != null ? '/uploads/' + member.userImg : '/images/profile/default-profile.png'}" 
+                        <img th:src="${member.userImg != null ? '/uploads/' + member.userImg : '/images/profile/default-profile.png'}"
                              id="profileImage" alt="프로필 이미지">
                     </div>
                     <div class="file-input">
@@ -47,7 +47,7 @@
                 <!-- 소개글 -->
                 <div class="bio-section">
                     <label for="userIntroduce">소개글</label>
-                    <textarea id="userIntroduce" name="userIntroduce" placeholder="자기소개를 작성하세요.(200자 이내)" 
+                    <textarea id="userIntroduce" name="userIntroduce" placeholder="자기소개를 작성하세요.(200자 이내)"
                               maxlength="200" th:text="${member.userIntroduce}"></textarea>
                     <p id="charCount">0/200</p>
                 </div>
@@ -117,29 +117,29 @@
 
     function saveProfile() {
         const formData = new FormData(document.getElementById('profileForm'));
-        
+
         // 파일 입력이 비어있는지 확인
         const fileInput = document.getElementById('profileImageUpload');
         if (fileInput.files.length > 0) {
             formData.set('profileImage', fileInput.files[0]);
         }
-        
+
         fetch('/settings/save-profile', {
             method: 'POST',
             body: formData
         })
-        .then(response => {
-            if (!response.ok) throw new Error(`서버 오류: ${response.status}`);
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('saveMessage').style.display = 'block';
-            alert(data);
-        })
-        .catch(error => {
-            alert("프로필 저장 중 오류 발생");
-            console.error(error);
-        });
+            .then(response => {
+                if (!response.ok) throw new Error(`서버 오류: ${response.status}`);
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('saveMessage').style.display = 'block';
+                alert(data);
+            })
+            .catch(error => {
+                alert("프로필 저장 중 오류 발생");
+                console.error(error);
+            });
     }
 
     function saveNickname() {
@@ -159,6 +159,7 @@
             },
             body: formData
         })
+<<<<<<< HEAD
         .then(response => {
             if (!response.ok) throw new Error(`서버 오류: ${response.status}`);
             return response.text();
@@ -172,6 +173,21 @@
             alert("닉네임 변경 중 오류 발생");
             console.error(error);
         });
+=======
+            .then(response => {
+                if (!response.ok) throw new Error(`서버 오류: ${response.status}`);
+                return response.text();
+            })
+            .then(data => {
+                alert(data);
+                document.getElementById('nickname').textContent = newNickname;
+                closeModal('nicknameModal');
+            })
+            .catch(error => {
+                alert("닉네임 변경 중 오류 발생");
+                console.error(error);
+            });
+>>>>>>> 3a0a49e72ecd10ef42ee54150284b241e8c30584
     }
 
     function savePassword() {
