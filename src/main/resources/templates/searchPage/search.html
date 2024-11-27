@@ -180,7 +180,7 @@
         const modalBody = document.getElementById('modalBody');
 
         // AJAX 요청을 통해 HTML 콘텐츠를 가져옴
-        fetch(`/search/feedPopup/${feedId}`)
+        fetch(`/search/feed/${feedId}`)
             .then(response => response.text())
             .then(html => {
                 modalBody.innerHTML = html;

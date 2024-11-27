@@ -37,11 +37,13 @@
             <!-- 댓글 섹션 -->
             <div class="comments-section" id="commentsContainer">
                 <div class="comment" th:each="comment : ${comments}">
-                    <img th:src="@{/images/profile/{img}(img=${comment.member.userImg})}" alt="Comment" class="comment-user-image">
+                    <div class="comment-user-info">
+                        <img th:src="@{/uploads/} + ${comment.member.userImg}" alt="Comment" class="comment-user-image">
+                    </div>
                     <div class="comment-content">
-                                <span class="comment-name">
-                                    <span th:text="${comment.member.userNickname}"></span>
-                                </span>
+                        <span class="comment-name">
+                            <span th:text="${comment.member.userNickname}"></span>
+                        </span>
                         <p th:text="${comment.commentContent}"></p>
                     </div>
                 </div>

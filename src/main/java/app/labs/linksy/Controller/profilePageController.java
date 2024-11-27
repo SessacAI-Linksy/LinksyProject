@@ -96,14 +96,9 @@ public class profilePageController {
     // 피드 팝업 출력
     @GetMapping("/profile/feed/popup/{feedId}")
     public String feedPopup(Model model, @PathVariable("feedId") int feedId) {
-<<<<<<< HEAD
-        Feed feed = searchService.getFeedById((feedId));
-        List<Comment> comments = commentService.getCommentsByFeedId(feedId);
-=======
         List<Comment> comments = commentService.getCommentsByFeedId(feedId);
 
         Feed feed = searchService.getFeedById(feedId);
->>>>>>> 3a0a49e72ecd10ef42ee54150284b241e8c30584
 		model.addAttribute("feed", feed);
         model.addAttribute("comments", comments);
         return "searchPage/searchFeedPopup";
