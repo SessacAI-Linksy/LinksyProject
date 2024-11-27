@@ -26,17 +26,17 @@ public class ProfileController {
     private String uploadDir;
 
     @PostMapping("/save-nickname")
-    public ResponseEntity<String> saveNickname(@RequestParam("userNickname") String newNickname,
+    public ResponseEntity<String> saveNickname(@RequestParam("nickname") String nickname,
                                                 HttpSession session) {
-
-        if (newNickname == null || newNickname.trim().isEmpty()) {
+        
+        if (nickname == null || nickname.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("닉네임이 유효하지 않습니다.");
         }
 
-        System.out.println("닉네임 변경 요청: " + newNickname);
+        System.out.println("닉네임 변경 요청: " + nickname);
         
         String userId = httpSessionService.sessionConfirm(session);
-        profileSettingService.updateNickname(userId, newNickname);
+        profileSettingService.updateNickname(userId, nickname);
 
         return ResponseEntity.ok("닉네임이 성공적으로 변경되었습니다.");
     }

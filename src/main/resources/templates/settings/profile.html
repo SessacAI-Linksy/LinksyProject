@@ -149,24 +149,29 @@
             return;
         }
 
+        const formData = new URLSearchParams();
+        formData.append('nickname', newNickname);
+
         fetch('/settings/save-nickname', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nickname: newNickname })
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData
         })
-            .then(response => {
-                if (!response.ok) throw new Error(`서버 오류: ${response.status}`);
-                return response.text();
-            })
-            .then(data => {
-                alert(data);
-                document.getElementById('nickname').textContent = ` ${newNickname}`;
-                closeModal('nicknameModal');
-            })
-            .catch(error => {
-                alert("닉네임 변경 중 오류 발생");
-                console.error(error);
-            });
+        .then(response => {
+            if (!response.ok) throw new Error(`서버 오류: ${response.status}`);
+            return response.text();
+        })
+        .then(data => {
+            alert(data);
+            document.getElementById('nickname').textContent = newNickname;
+            closeModal('nicknameModal');
+        })
+        .catch(error => {
+            alert("닉네임 변경 중 오류 발생");
+            console.error(error);
+        });
     }
 
     function savePassword() {

@@ -13,6 +13,8 @@ import app.labs.linksy.Model.Member;
 import app.labs.linksy.Service.MemberService;
 import app.labs.linksy.Service.SearchService;
 import app.labs.linksy.Service.FollowService;
+import app.labs.linksy.Service.CommentService;
+import app.labs.linksy.Model.Comment;
 
 @Controller 
 public class profilePageController {
@@ -23,6 +25,8 @@ public class profilePageController {
     private SearchService searchService;
     @Autowired
     private FollowService followService;
+    @Autowired
+    private CommentService commentService;
 
     // 사용중인 사용자의 프로필 페이지
     @GetMapping("/profile")
@@ -91,7 +95,9 @@ public class profilePageController {
     @GetMapping("/profile/feed/popup/{feedId}")
     public String feedPopup(Model model, @PathVariable("feedId") int feedId) {
         Feed feed = searchService.getFeedById((feedId));
+        List<Comment> comments = commentService.getCommentsByFeedId(feedId);
 		model.addAttribute("feed", feed);
+        model.addAttribute("comments", comments);
         return "searchPage/searchFeedPopup";
     }
 }

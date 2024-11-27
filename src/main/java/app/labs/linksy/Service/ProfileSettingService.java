@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import app.labs.linksy.DAO.ProfileSettingRepository;
 import app.labs.linksy.Model.Member;
+import org.apache.ibatis.annotations.Param;
 
 @Service
 public class ProfileSettingService {
@@ -19,9 +20,9 @@ public class ProfileSettingService {
         profileSettingRepository.updateUserIntroduce(userId, userIntroduce);
     }
 
-    public void updateNickname(String userId, String nickname) {
+    public void updateNickname(@Param("userId") String userId, @Param("nickname") String nickname) {
         profileSettingRepository.updateNickname(userId, nickname);
-    }   
+    }
 
     public int updatePassword(String userId, String currentPassword, String newPassword) {
         return profileSettingRepository.updatePassword(userId, currentPassword, newPassword);

@@ -16,4 +16,10 @@
 			bio = #{bio}
 		WHERE id = #{id}
 	</update>
+
+	<update id="updateNickname">
+		UPDATE member
+		SET user_nickname = #{nickname}
+		WHERE user_id = #{userId}
+	</update>
 </mapper>
