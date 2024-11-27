@@ -27,7 +27,8 @@
             c.comment_content AS commentContent,
             c.parent_id AS parentId,
             c.comment_time AS commentTime,
-            m.user_nickname AS userNickname
+            m.user_nickname AS userNickname,
+            m.user_img AS userImg
         FROM COMMENTS c
         JOIN MEMBER m ON c.user_id = m.user_id
         WHERE c.feed_id = #{feedId}

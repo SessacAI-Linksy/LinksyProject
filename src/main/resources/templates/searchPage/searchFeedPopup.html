@@ -40,7 +40,7 @@
                     <img th:src="@{/images/profile/{img}(img=${comment.member.userImg})}" alt="Comment" class="comment-user-image">
                     <div class="comment-content">
                                 <span class="comment-name">
-                                    <span th:text="${comment.userId}"></span>
+                                    <span th:text="${comment.member.userNickname}"></span>
                                 </span>
                         <p th:text="${comment.commentContent}"></p>
                     </div>
