@@ -178,7 +178,6 @@ async function showLikesPopup(element) {
             likeItem.innerHTML = `
                 <img class="profileImage" src="/images/profile/${user.userImg}" alt="프로필 사진">
                 <div class="userInfo">${user.userNickname}</div>
-                
             `;
             
             likesList.appendChild(likeItem);

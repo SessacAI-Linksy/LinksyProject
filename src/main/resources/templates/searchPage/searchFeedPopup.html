@@ -9,7 +9,7 @@
                 <!-- 왼쪽 이미지 섹션 -->
                 <div class="feed-image-section">
                     <div th:each="image : ${feed.feedImages}" class="feed-image-item">
-                        <img th:src="@{/uploads/} + ${image.imgName}" alt="Feed Image">
+                        <img th:src="@{/images/feeds/{img}(img=${image.imgName})}" alt="Feed Image"  style="width:100%; height:100%;">
                     </div>
                 </div> 
                 
@@ -17,7 +17,7 @@
                 <div class="feed-content-section">
                     <!-- 작성자 정보 -->
                     <div class="author-info">
-                        <img th:src="@{/uploads/} + ${feed.member.userImg}" alt="Profile" class="profile-image">
+                        <img th:src="@{/images/profile/{img}(img=${feed.member.userImg})}" alt="Profile" class="profile-image">
                         <div class="author-details">
                             <span class="author-name" th:text="${feed.member.userName}"></span>
                             <span class="post-time" data-feed-time="${feed.feedTime}"></span>
@@ -37,7 +37,7 @@
                     <!-- 댓글 섹션 -->
                     <div class="comments-section" id="commentsContainer">
                         <div class="comment" th:each="comment : ${comments}">
-                            <img th:src="@{/uploads/} + ${comment.member.userImg}" alt="Comment" class="comment-user-image">
+                            <img th:src="@{/images/profile/{img}(img=${comment.member.userImg})}" alt="Comment" class="comment-user-image">
                             <div class="comment-content">
                                 <span class="comment-name">
                                     <span th:text="${comment.userId}"></span>

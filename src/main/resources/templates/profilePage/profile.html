@@ -21,7 +21,7 @@
             <div class="profile_header">
                 <div class="profile_info">
                     <div class="profile_image">
-                        <img th:src="${member.userImg}" alt="Profile Image">
+                        <img th:src="@{/images/profile/{img}(img=${member.userImg})}" alt="Profile Image">
                     </div>
                     <div class="profile_details">
                         <div class="profile_name">
@@ -57,12 +57,12 @@
                     </div>
                 </div>
             </div>
-
+        
             <!-- 피드 그리드 -->
             <div class="feed_grid">
                 <div class="grid-item" th:each="feed : ${feeds}" th:onclick="'openFeedPopup(' + ${feed.feedId} + ')'">
                     <div class="image-container">
-                        <img th:each="image : ${feed.feedImages}" th:src="@{/uploads/} + ${image.imgName}" 
+                        <img th:each="image : ${feed.feedImages}" img th:src="@{/images/feeds/{img}(img=${image.imgName})}" 
                              alt="Feed Image" class="full-image">
                         <div class="overlay">
                             <span th:text="'좋아요: ' + ${feed.likeAmount}"></span>

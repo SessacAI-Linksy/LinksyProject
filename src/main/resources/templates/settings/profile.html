@@ -15,10 +15,6 @@
                 <img src="/images/logo/blacklogo.png" alt="Linksy 로고">
             </a>
         </div>
-        <div class="sidebar-menu">
-            <a href="profile">프로필 편집</a>
-            <a href="notifications">알림</a>
-        </div>
     </div>
 
     <!-- Main Content -->
@@ -29,7 +25,7 @@
                 <div class="profile-section">
                     <!-- 프로필 사진 -->
                     <div class="profile-image-wrapper">
-                        <img th:src="${member.userImg != null ? '/uploads/' + member.userImg : '/images/profile/default-profile.png'}" 
+                        <img th:src="@{'/images/profile/' + ${member.userImg}}" 
                              id="profileImage" alt="프로필 이미지">
                     </div>
                     <div class="file-input">
@@ -61,10 +57,6 @@
                 <p id="saveMessage" style="color: green; display: none;">프로필이 저장되었습니다!</p>
             </form>
         </div>
-    </div>
-
-    <div class="right-panel">
-        FRIEND
     </div>
 </div>
 
