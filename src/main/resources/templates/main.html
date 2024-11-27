@@ -21,7 +21,9 @@
 			<div class="feeds-container" th:data-feed-id="${feed.feedId}">
 				<!--  게시물 상단 - 사용자 정보 -->
 				<div class="feed-header">
-					<img th:src="@{/images/profile/{img}(img=${feed.member.userImg})}" alt="프로필 사진" class="profile-img">
+					<a th:href="@{/profile}">
+						<img th:src="@{/images/profile/{img}(img=${feed.member.userImg})}" alt="프로필 사진" class="profile-img">
+					</a>
 					<span class="username" th:text="${feed.member.userNickname}"></span>
 				</div>
 				<!-- 게시물 이미지 -->
@@ -79,7 +81,7 @@
 		</div>
 		<!-- 프로필 섹션 -->
 		<div class="user-profile">
-			<img th:src="${member.userImg}" alt="프로필 사진" class="my-profile">
+			<img th:src="@{'/images/profile/' + ${member.userImg}}" alt="프로필 사진" class="my-profile">
 			<div class="user-info"> 
 				<span class="my-username" th:text="${member.userNickname}"></span>
 			</div>
